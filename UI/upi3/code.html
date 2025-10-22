@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Processing Payment</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3fe458",
+            "background-light": "#f6f8f6",
+            "background-dark": "#112114",
+            "content-light": "#111812",
+            "content-dark": "#e3e8e4",
+            "subtle-light": "#6b7280",
+            "subtle-dark": "#9ca3af",
+            "border-light": "#e5e7eb",
+            "border-dark": "#374151"
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+          keyframes: {
+            pulse: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
+              '50%': { transform: 'scale(1.1)', opacity: '1' },
+            },
+            progress: {
+                '0%': { width: '0%' },
+                '100%': { width: '100%' },
+            }
+          },
+          animation: {
+            pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            progress: 'progress 5s linear forwards',
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+      background-image: linear-gradient(to bottom, rgba(240, 255, 244, 0.5), rgba(255, 255, 255, 1));
+    }
+    .dark body {
+      background-image: linear-gradient(to bottom, rgba(17, 33, 20, 0.5), #112114);
+    }
+    .loader-ring {
+        border-color: transparent;
+        border-top-color: #3fe458;
+        animation: spin 1.5s linear infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-content-light dark:text-content-dark">
+<div class="flex flex-col min-h-screen justify-center items-center p-6 text-center">
+<main class="flex-grow flex flex-col justify-center items-center">
+<div class="relative flex items-center justify-center w-48 h-48">
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-pulse"></div>
+<div class="absolute inset-2 border-4 loader-ring rounded-full"></div>
+<div class="relative w-36 h-36 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
+<span class="text-6xl font-bold text-content-light dark:text-content-dark">₹</span>
+</div>
+</div>
+<div class="mt-8">
+<h1 class="text-xl font-bold text-content-light dark:text-content-dark">Connecting to Google Pay...</h1>
+<p class="text-lg text-subtle-light dark:text-subtle-dark mt-2">Approve the payment in your UPI app.</p>
+</div>
+<div class="w-48 h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-8 overflow-hidden">
+<div class="h-full bg-primary animate-progress"></div>
+</div>
+</main>
+<footer class="py-4">
+<p class="text-sm text-subtle-light dark:text-subtle-dark">This might take a few seconds.</p>
+</footer>
+</div>
+
+</body></html>

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import ChooseUPIAppScreen from './components/ChooseUPIAppScreen'
 import UPIPaymentScreen from './components/UPIPaymentScreen'
+import ProcessingPaymentScreen from './components/ProcessingPaymentScreen'
+import PaymentSuccessScreen from './components/PaymentSuccessScreen'
+import DigitalReceiptScreen from './components/DigitalReceiptScreen'
 
 function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
   const [paymentMethod, setPaymentMethod] = useState('upi')
@@ -8,7 +11,11 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
   const [isVisible, setIsVisible] = useState(false)
   const [showUpiSelection, setShowUpiSelection] = useState(false)
   const [showUpiPayment, setShowUpiPayment] = useState(false)
+  const [showProcessing, setShowProcessing] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [showReceipt, setShowReceipt] = useState(false)
   const [selectedUpiApp, setSelectedUpiApp] = useState(null)
+  const [transactionData, setTransactionData] = useState(null)
 
   useEffect(() => {
     // Trigger animation after mount
@@ -48,7 +55,57 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
 
   const handleUpiPaymentConfirm = () => {
     setShowUpiPayment(false)
-    setPaymentSuccess(true)
+    setShowProcessing(true)
+  }
+
+  const handleProcessingComplete = () => {
+    // Generate transaction data
+    const txnId = Math.floor(100000000000 + Math.random() * 900000000000).toString()
+    const currentTime = new Date().toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    })
+    const currentDate = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+
+    setTransactionData({
+      txnId,
+      time: currentTime,
+      date: currentDate
+    })
+
+    setShowProcessing(false)
+    setShowSuccess(true)
+  }
+
+  const handleSuccessClose = () => {
+    setShowSuccess(false)
+    setIsVisible(false)
+    setTimeout(() => {
+      if (onClose) {
+        onClose()
+      }
+    }, 300)
+  }
+
+  const handleViewReceipt = () => {
+    setShowSuccess(false)
+    setShowReceipt(true)
+  }
+
+  const handleReceiptBack = () => {
+    setShowReceipt(false)
+    setShowSuccess(true)
+  }
+
+  const handleDownloadReceipt = () => {
+    // TODO: Implement PDF download
+    console.log('Download receipt clicked')
+    alert('Receipt download feature coming soon!')
   }
 
   const handleUpiPaymentCancel = () => {
@@ -84,6 +141,41 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
 
   return (
     <>
+      {/* Digital Receipt Screen */}
+      {showReceipt && transactionData && (
+        <DigitalReceiptScreen
+          memberName={memberName}
+          groupName="Goa Trip 🏖️"
+          amount={amount}
+          txnId={transactionData.txnId}
+          date={transactionData.date}
+          time={transactionData.time}
+          onBack={handleReceiptBack}
+          onDownload={handleDownloadReceipt}
+        />
+      )}
+
+      {/* Payment Success Screen */}
+      {showSuccess && (
+        <PaymentSuccessScreen
+          memberName={memberName}
+          amount={amount}
+          groupName="Goa Trip 🏖️"
+          upiId={`${memberName.toLowerCase().replace(' ', '.')}@okaxis`}
+          selectedUpiApp={selectedUpiApp}
+          onViewReceipt={handleViewReceipt}
+          onClose={handleSuccessClose}
+        />
+      )}
+
+      {/* Processing Payment Screen */}
+      {showProcessing && (
+        <ProcessingPaymentScreen
+          selectedUpiApp={selectedUpiApp}
+          onComplete={handleProcessingComplete}
+        />
+      )}
+
       {/* UPI Payment Confirmation Screen */}
       {showUpiPayment && (
         <UPIPaymentScreen
@@ -122,7 +214,7 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
         <div className="p-6 pt-4 relative">
           <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-gray-300 rounded-full"></div>
           
-          {!paymentSuccess ? (
+          {!paymentSuccess && !showSuccess ? (
             <div className="transition-opacity duration-300">
               <div className="text-center pt-5">
                 <h2 className="text-2xl font-bold text-gray-900">Settle Up</h2>

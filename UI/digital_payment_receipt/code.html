@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Receipt - Hisab.AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3fe458",
+            "background-light": "#f6f8f6",
+            "background-dark": "#112114",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark">
+<div class="flex flex-col min-h-screen">
+<header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<img alt="Hisab.AI Logo" class="h-8 w-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzwll9FPjEdNrkTw6ANS_X2uCbeO65r8VP6QAH59TMmkWvKFkDCjek2AtQ0_7z2yVgA5trcPiHceCqKkEnRW1kjvjVupVW8o2u1Nk9qkS1nJd_fmctOfd0tZtfoX2z3GrhrZqvtYvKDhwvgSCYXFlYcXFPmJ7TtjqiT9Nfu0mkxgb8sFybXCkcfIN4FufvEaTjNkDAermvzv4k8LE4rVb1-CCCic2Nt1JeJSCqbeJ0kHMx4BhJkvHeTwEr_eUcLh5OP2IqzvnrckAz"/>
+<span class="text-xl font-bold text-[#112114] dark:text-background-light">Payment Receipt</span>
+</div>
+</header>
+<main class="flex-grow px-4 pb-4">
+<div class="bg-white dark:bg-background-dark/50 rounded-xl shadow-lg p-6 animate-fade-up">
+<div class="flex items-center justify-between mb-6">
+<div class="text-left">
+<p class="text-sm text-gray-500 dark:text-gray-400">Paid To</p>
+<p class="text-lg font-bold text-[#112114] dark:text-background-light">College Canteen</p>
+</div>
+<div class="px-3 py-1 text-xs font-semibold rounded-full bg-primary/20 text-primary-darker">
+             SUCCESSFUL
+          </div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-gray-500 dark:text-gray-400">Group</span>
+<span class="font-medium text-[#112114] dark:text-background-light">B.Tech Friends</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-gray-500 dark:text-gray-400">Payment Mode</span>
+<span class="font-medium text-[#112114] dark:text-background-light">UPI</span>
+</div>
+<hr class="border-gray-200 dark:border-gray-700 my-4"/>
+<div class="flex justify-between items-center text-xl font-bold">
+<span class="text-gray-500 dark:text-gray-400">Amount</span>
+<span class="text-[#112114] dark:text-background-light">₹85.00</span>
+</div>
+<hr class="border-gray-200 dark:border-gray-700 my-4"/>
+<div class="flex justify-between items-center text-xs">
+<span class="text-gray-500 dark:text-gray-400">Transaction ID</span>
+<span class="font-mono text-[#112114] dark:text-background-light">TXN1234567890</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-gray-500 dark:text-gray-400">Date</span>
+<span class="font-medium text-[#112114] dark:text-background-light">July 26, 2024</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-gray-500 dark:text-gray-400">Time</span>
+<span class="font-medium text-[#112114] dark:text-background-light">10:30 AM</span>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<img alt="UPI QR Code" class="w-32 h-32" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzweQEg8QrQklOSyRJRDPWX35fgU0TUxZoxMTGm61FfCkDOavRZ5iegPhXLQDzU8-vNSw_nRxibglytZLEu4SeD2ylTX3tZDClAW-lXVhVTOPpzkKxBUP1eVuvnQpzqT2IVviqXLsZj66tAdUgoGVLrDWeiNo3i4V-cmmIfIoQvu8CjjhEgZGpITYwZv7wARRNiPX3-RYPZKAVGUobeK6KMWpHISu71WXxZgSN-LE1BTzbGnDWJ1-zarbg_tYjVwmeat38ZKvkbauc"/>
+</div>
+</main>
+<footer class="p-4 bg-background-light dark:bg-background-dark">
+<p class="text-center text-xs text-gray-500 dark:text-gray-400 mb-4">Powered by Hisab.AI</p>
+<button class="w-full bg-primary text-black font-bold py-3 px-4 rounded-lg active:bg-primary/80 transition-colors">
+          Download Receipt (PDF)
+        </button>
+</footer>
+</div>
+<style>
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.5s ease-out forwards;
+    }
+  </style>
+
+</body></html>

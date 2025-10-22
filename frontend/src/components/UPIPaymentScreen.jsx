@@ -23,17 +23,10 @@ export default function UPIPaymentScreen({
   onConfirm,
   onCancel 
 }) {
-  const [isProcessing, setIsProcessing] = useState(false)
-
   const handleConfirmPayment = () => {
-    setIsProcessing(true)
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false)
-      if (onConfirm) {
-        onConfirm()
-      }
-    }, 1500)
+    if (onConfirm) {
+      onConfirm()
+    }
   }
 
   return (
@@ -124,22 +117,14 @@ export default function UPIPaymentScreen({
           <button
             onClick={onCancel}
             className="w-full py-3 px-5 rounded-lg bg-gray-200 text-gray-900 font-bold text-base"
-            disabled={isProcessing}
           >
             Cancel
           </button>
           <button
             onClick={handleConfirmPayment}
-            disabled={isProcessing}
             className="w-full py-3 px-5 rounded-lg bg-primary text-black font-bold text-base flex items-center justify-center gap-2"
           >
             <span>Confirm &amp; Pay</span>
-            {isProcessing && (
-              <svg className="animate-spin h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
-              </svg>
-            )}
           </button>
         </div>
       </footer>

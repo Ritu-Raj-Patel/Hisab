@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Successful</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3fe458",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112114",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        @keyframes checkmark-animation {
+            0% {
+                stroke-dasharray: 0 100;
+            }
+            100% {
+                stroke-dasharray: 100 0;
+            }
+        }
+        .checkmark__check {
+            stroke-dasharray: 0 100;
+            animation: checkmark-animation 0.5s ease-in-out 0.5s forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#112114] dark:text-[#f6f8f6] antialiased">
+<div class="flex flex-col h-screen">
+<main class="flex-grow flex flex-col items-center justify-center text-center px-4 -mt-16">
+<div class="relative mb-6">
+<div class="w-32 h-32 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center">
+<svg class="w-16 h-16 text-white" fill="none" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+<circle cx="26" cy="26" fill="none" r="25"></circle>
+<path class="checkmark__check" d="M14 27l8 8 16-16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+</div>
+<h1 class="text-3xl font-bold text-[#112114] dark:text-white">Payment Successful!</h1>
+<p class="mt-2 text-base text-[#112114]/80 dark:text-[#f6f8f6]/80">Your settlement of ₹1200 to 'Trip to Goa' has been completed.</p>
+<div class="w-full max-w-md bg-white dark:bg-[#1A2D1F] rounded-xl shadow-lg p-6 mt-8 text-left space-y-4">
+<div class="flex justify-between items-center pb-2 border-b border-background-light dark:border-white/10">
+<p class="text-lg font-bold text-[#112114] dark:text-white">Transaction Summary</p>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#112114]/60 dark:text-[#f6f8f6]/60">Group</span>
+<span class="text-sm font-medium text-[#112114] dark:text-white">Trip to Goa</span>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#112114]/60 dark:text-[#f6f8f6]/60">Payment Method</span>
+<span class="text-sm font-medium text-[#112114] dark:text-white">UPI</span>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#112114]/60 dark:text-[#f6f8f6]/60">UPI ID</span>
+<span class="text-sm font-medium text-[#112114] dark:text-white">user@upi</span>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#112114]/60 dark:text-[#f6f8f6]/60">Time</span>
+<span class="text-sm font-medium text-[#112114] dark:text-white">10:30 AM</span>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#112114]/60 dark:text-[#f6f8f6]/60">Txn ID</span>
+<span class="text-sm font-medium text-[#112114] dark:text-white">123456789012</span>
+</div>
+</div>
+</main>
+<footer class="p-4 space-y-3">
+<button class="w-full h-12 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-base transition-opacity hover:opacity-90">
+                View Receipt
+            </button>
+<button class="w-full h-12 flex items-center justify-center rounded-lg border border-[#112114]/20 dark:border-[#f6f8f6]/20 text-[#112114] dark:text-white font-bold text-base transition-colors hover:bg-primary/10 dark:hover:bg-primary/20">
+                Close
+            </button>
+</footer>
+</div>
+
+</body></html>
