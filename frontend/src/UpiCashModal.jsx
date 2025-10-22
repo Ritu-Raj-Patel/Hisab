@@ -4,6 +4,7 @@ import UPIPaymentScreen from './components/UPIPaymentScreen'
 import ProcessingPaymentScreen from './components/ProcessingPaymentScreen'
 import PaymentSuccessScreen from './components/PaymentSuccessScreen'
 import DigitalReceiptScreen from './components/DigitalReceiptScreen'
+import CashConfirmationModal from './CashConfirmationModal'
 
 function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
   const [paymentMethod, setPaymentMethod] = useState('upi')
@@ -14,6 +15,7 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
   const [showProcessing, setShowProcessing] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showReceipt, setShowReceipt] = useState(false)
+  const [showCashConfirmation, setShowCashConfirmation] = useState(false)
   const [selectedUpiApp, setSelectedUpiApp] = useState(null)
   const [transactionData, setTransactionData] = useState(null)
 
@@ -27,8 +29,8 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
       // Show UPI app selection screen
       setShowUpiSelection(true)
     } else {
-      // For cash payment, show success directly
-      setPaymentSuccess(true)
+      // For cash payment, show cash confirmation modal
+      setShowCashConfirmation(true)
     }
   }
 
@@ -328,6 +330,15 @@ function UpiCashModal({ memberName = 'Rohan', amount = '₹4,888', onClose }) {
           )}
         </div>
       </div>
+      
+      {showCashConfirmation && (
+        <CashConfirmationModal
+          memberName={memberName}
+          amount={amount}
+          groupName="Goa Trip 🏖️"
+          onClose={() => setShowCashConfirmation(false)}
+        />
+      )}
       </div>
     </>
   )

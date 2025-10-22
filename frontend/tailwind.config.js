@@ -4,6 +4,7 @@ export default {
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -27,6 +28,7 @@ export default {
         'text-muted': '#6b7280',
         'text-dark': '#E5E5E7',
         'text-muted-dark': '#9CA3AF',
+        'danger': '#FF4D4D',
       },
       fontFamily: {
         display: ['Inter', 'Poppins', 'sans-serif'],
@@ -35,6 +37,7 @@ export default {
         subtle: '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
         soft: '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
         'subtle-lg': '0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'mint-glow': '0 0 20px 5px rgba(63, 228, 88, 0.4)',
       },
       borderRadius: {
         lg: '1.5rem',

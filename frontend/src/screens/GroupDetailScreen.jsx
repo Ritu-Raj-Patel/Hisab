@@ -141,7 +141,7 @@ export default function GroupDetailScreen({ group, onBack }) {
       <header className="flex items-center justify-between pt-2">
         <button
           onClick={onBack}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-text-light shadow-subtle"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-text-light dark:text-content-dark shadow-subtle"
         >
           <span className="material-icons text-lg">arrow_back</span>
         </button>
@@ -152,10 +152,10 @@ export default function GroupDetailScreen({ group, onBack }) {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-text-light shadow-subtle">
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-text-light dark:text-content-dark shadow-subtle">
             <span className="material-icons text-lg">edit</span>
           </button>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-text-light shadow-subtle">
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-text-light dark:text-content-dark shadow-subtle">
             <span className="material-icons text-lg">more_horiz</span>
           </button>
         </div>
@@ -174,13 +174,13 @@ export default function GroupDetailScreen({ group, onBack }) {
           ))}
         </section>
 
-        <div className="mt-5 rounded-full bg-white p-1 shadow-subtle">
+        <div className="mt-5 rounded-full bg-white dark:bg-surface-dark p-1 shadow-subtle">
           {['expenses', 'members', 'insights'].map((key) => (
             <button
               key={key}
               onClick={() => setTab(key)}
               className={`w-1/3 rounded-full px-4 py-2 text-center text-sm font-medium capitalize transition ${
-                tab === key ? 'bg-card-light text-text-light shadow-subtle' : 'text-text-muted'
+                tab === key ? 'bg-card-light dark:bg-card-dark text-text-light dark:text-content-dark shadow-subtle' : 'text-text-muted dark:text-subtle-dark'
               }`}
             >
               {key}
@@ -191,7 +191,7 @@ export default function GroupDetailScreen({ group, onBack }) {
         {tab === 'expenses' && (
           <div className="mt-4 space-y-3">
             {detail.expenses.map((expense) => (
-              <article key={expense.id} className="rounded-xl bg-white p-4 shadow-subtle">
+              <article key={expense.id} className="rounded-xl bg-white dark:bg-surface-dark p-4 shadow-subtle">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-xl">

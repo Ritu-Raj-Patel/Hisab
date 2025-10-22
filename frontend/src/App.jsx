@@ -58,7 +58,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background-light">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col">
         {screen === SCREENS.WELCOME && (
           <WelcomeScreen

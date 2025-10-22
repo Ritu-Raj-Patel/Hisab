@@ -1,5 +1,12 @@
 import { useState } from 'react'
 import GroupDetailScreen from './GroupDetailScreen'
+import ProfileScreen from './ProfileScreen'
+import SettingsScreen from './SettingsScreen'
+import LinkedAccountsScreen from './LinkedAccountsScreen'
+import SecurityScreen from './SecurityScreen'
+import AICompanionScreen from './AICompanionScreen'
+import NotificationsScreen from './NotificationsScreen'
+import { BottomNavigation } from '../components/BottomNavigation'
 
 const stats = [
   { label: 'Total Expenses', value: '₹1,25,000' },
@@ -114,6 +121,12 @@ const groups = [
 
 export default function DashboardScreen({ activeTab, onTabChange, selectedGroupId, onOpenGroup, onOpenInvite }) {
   const [groupFilter, setGroupFilter] = useState('active')
+  const [showProfile, setShowProfile] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [showLinkedAccounts, setShowLinkedAccounts] = useState(false)
+  const [showSecurity, setShowSecurity] = useState(false)
+  const [showAICompanion, setShowAICompanion] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
 
   const filteredGroups = groups.filter((group) => {
     if (groupFilter === 'active') return group.status === 'active'
@@ -130,10 +143,95 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
 
   const activeGroup = groups.find((group) => group.id === selectedGroupId) ?? groups[0]
 
+  const handleProfileClick = () => {
+    setShowProfile(true)
+  }
+
+  const handleProfileBack = () => {
+    setShowProfile(false)
+  }
+
+  const handleProfileNavigate = (tab) => {
+    setShowProfile(false)
+    onTabChange(tab)
+  }
+
+  const handleSettingsClick = () => {
+    setShowSettings(true)
+  }
+
+  const handleSettingsBack = () => {
+    setShowSettings(false)
+  }
+
+  const handleLinkedAccountsClick = () => {
+    setShowLinkedAccounts(true)
+  }
+
+  const handleLinkedAccountsBack = () => {
+    setShowLinkedAccounts(false)
+  }
+
+  const handleSecurityClick = () => {
+    setShowSecurity(true)
+  }
+
+  const handleSecurityBack = () => {
+    setShowSecurity(false)
+  }
+
+  const handleAICompanionClick = () => {
+    setShowAICompanion(true)
+  }
+
+  const handleAICompanionBack = () => {
+    setShowAICompanion(false)
+  }
+
+  const handleNotificationsClick = () => {
+    setShowNotifications(true)
+  }
+
+  const handleNotificationsBack = () => {
+    setShowNotifications(false)
+  }
+
   return (
-    <div className="relative flex min-h-screen flex-col bg-background-light">
+    <div className="relative flex min-h-screen flex-col bg-background-light dark:bg-background-dark">
       <div className="flex-1 px-5 pb-24 pt-10">
-        {isGroupDetailTab ? (
+        {showNotifications ? (
+          <div className="fixed inset-0 z-50">
+            <NotificationsScreen onBack={handleNotificationsBack} />
+          </div>
+        ) : showAICompanion ? (
+          <div className="fixed inset-0 z-50">
+            <AICompanionScreen onBack={handleAICompanionBack} />
+          </div>
+        ) : showSecurity ? (
+          <div className="fixed inset-0 z-50">
+            <SecurityScreen onBack={handleSecurityBack} />
+          </div>
+        ) : showLinkedAccounts ? (
+          <div className="fixed inset-0 z-50">
+            <LinkedAccountsScreen onBack={handleLinkedAccountsBack} />
+          </div>
+        ) : showSettings ? (
+          <div className="fixed inset-0 z-50">
+            <SettingsScreen onBack={handleSettingsBack} />
+          </div>
+        ) : showProfile ? (
+          <div className="fixed inset-0 z-50">
+            <ProfileScreen 
+              onBack={handleProfileBack} 
+              onSettingsClick={handleSettingsClick} 
+              onLinkedAccountsClick={handleLinkedAccountsClick} 
+              onSecurityClick={handleSecurityClick} 
+              onAICompanionClick={handleAICompanionClick} 
+              onNotificationsClick={handleNotificationsClick}
+              onNavigateTab={handleProfileNavigate}
+            />
+          </div>
+        ) : isGroupDetailTab ? (
           <GroupDetailScreen
             group={activeGroup}
             onBack={() => onTabChange('groups')}
@@ -152,8 +250,8 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
                   <p className="text-lg font-semibold">Bella</p>
                 </div>
               </div>
-              <button className="rounded-full bg-white p-2 shadow-subtle">
-                <span className="material-icons text-xl text-text-muted">notifications</span>
+              <button className="rounded-full bg-white p-2 shadow-subtle dark:bg-surface-dark">
+                <span className="material-icons text-xl text-text-muted dark:text-subtle-dark">notifications</span>
               </button>
             </header>
 
@@ -163,10 +261,10 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
                   {stats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="flex flex-col items-center rounded-xl bg-card-light p-4 text-center shadow-subtle"
+                      className="flex flex-col items-center rounded-xl bg-card-light dark:bg-card-dark p-4 text-center shadow-subtle"
                     >
-                      <p className="text-xs text-text-muted">{stat.label}</p>
-                      <p className="mt-1 text-base font-semibold">{stat.value}</p>
+                      <p className="text-xs text-text-muted dark:text-subtle-dark">{stat.label}</p>
+                      <p className="mt-1 text-base font-semibold text-text-light dark:text-content-dark">{stat.value}</p>
                     </div>
                   ))}
                 </section>
@@ -180,7 +278,7 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
                     {recentActivity.map((item) => (
                       <article
                         key={item.title}
-                        className="flex items-center justify-between rounded-xl bg-card-light p-4 shadow-subtle"
+                        className="flex items-center justify-between rounded-xl bg-card-light dark:bg-card-dark p-4 shadow-subtle"
                       >
                         <div className="flex items-center gap-4">
                           <div className={`flex h-12 w-12 items-center justify-center rounded-full ${item.badge.bg}`}>
@@ -204,9 +302,9 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
                   </div>
                   <div className="space-y-3">
                     {smartInsights.map((insight) => (
-                      <div key={insight.title} className="rounded-xl bg-card-light p-4 shadow-subtle">
-                        <h3 className="text-sm font-semibold text-text-light">{insight.title}</h3>
-                        <p className="mt-2 text-xs text-text-muted">{insight.body}</p>
+                      <div key={insight.title} className="rounded-xl bg-card-light dark:bg-card-dark p-4 shadow-subtle">
+                        <h3 className="text-sm font-semibold text-text-light dark:text-content-dark">{insight.title}</h3>
+                        <p className="mt-2 text-xs text-text-muted dark:text-subtle-dark">{insight.body}</p>
                       </div>
                     ))}
                   </div>
@@ -309,7 +407,7 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
                         </span>
                       </div>
 
-                      <div className="mt-4 flex items-center justify-between rounded-2xl bg-background-light p-3">
+                      <div className="mt-4 flex items-center justify-between rounded-2xl bg-background-light dark:bg-background-dark p-3">
                         <div>
                           <p className="text-[11px] uppercase tracking-wide text-text-muted">Total Spent</p>
                           <p className="mt-0.5 text-sm font-medium text-text-light">{group.total}</p>
@@ -390,59 +488,19 @@ export default function DashboardScreen({ activeTab, onTabChange, selectedGroupI
         )}
       </div>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 mx-auto max-w-md px-5 pb-6">
-        {!isGroupDetailTab && (
-          <button
-            onClick={onOpenInvite}
-            className="pointer-events-auto absolute left-1/2 top-0 -translate-y-1/2 -translate-x-1/2 rounded-full bg-primary p-4 text-white shadow-lg shadow-primary/40"
-          >
-            <span className="material-icons text-3xl">add</span>
-          </button>
-        )}
-        <nav className="pointer-events-auto rounded-3xl bg-card-light px-6 py-4 shadow-subtle-lg">
-          <ul className="flex items-center justify-between text-xs font-medium text-text-muted">
-            <li>
-              <button
-                onClick={() => onTabChange('home')}
-                className={`flex flex-col items-center ${
-                  isHomeTab ? 'text-primary' : 'text-text-muted'
-                }`}
-              >
-                <span className="material-icons text-base">home</span>
-                Home
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => onTabChange('groups')}
-                className={`flex flex-col items-center ${
-                  isGroupsNavActive ? 'text-primary' : 'text-text-muted'
-                }`}
-              >
-                <span className="material-icons text-base">groups</span>
-                Groups
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => onTabChange('insights')}
-                className={`flex flex-col items-center ${
-                  isInsightsTab ? 'text-primary' : 'text-text-muted'
-                }`}
-              >
-                <span className="material-icons text-base">insights</span>
-                Insights
-              </button>
-            </li>
-            <li>
-              <button className="flex flex-col items-center text-text-muted" disabled>
-                <span className="material-icons text-base">person</span>
-                Profile
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <BottomNavigation 
+          activeTab={activeTab}
+          showProfile={showProfile}
+          onTabChange={(tab) => {
+            if (tab === 'profile') {
+              handleProfileClick()
+            } else {
+              onTabChange(tab)
+            }
+          }}
+          showAddButton={!isGroupDetailTab}
+          onAddClick={onOpenInvite}
+        />
     </div>
   )
 }
