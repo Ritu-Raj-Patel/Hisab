@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hisab.AI Group Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3fe458",
+            "background-light": "#f6f8f6",
+            "background-dark": "#112114",
+            "content-light": "#111712",
+            "content-dark": "#E9F5E9",
+            "subtle-light": "#648769",
+            "subtle-dark": "#A8C2A8",
+            "surface-light": "#FFFFFF",
+            "surface-dark": "#1A2E1A",
+            "border-light": "#F0F4F1",
+            "border-dark": "#2A4A2C",
+            "mint-green-accent": "#E6FBF3",
+            "mint-green-dark": "#174C34"
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem",
+            "xl": "2rem",
+            "full": "9999px"
+          },
+          boxShadow: {
+            'soft': '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #f6f8f6;
+    }
+    .dark body {
+      background-color: #112114;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(926px, 100dvh);
+    }
+  </style>
+<style>
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
+<script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative mx-auto flex w-full max-w-md flex-col bg-gradient-to-b from-white via-background-light to-background-light dark:from-surface-dark dark:via-background-dark dark:to-background-dark" x-data="{ activeTab: 'members' }">
+<header class="sticky top-0 z-10 flex h-24 items-center justify-between bg-white/80 px-4 pt-8 backdrop-blur-sm dark:bg-background-dark/80">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-content-light dark:text-content-dark">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<div class="text-center">
+<h1 class="text-xl font-bold text-content-light dark:text-content-dark">Goa Trip 🏖️</h1>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">Created on 24th Nov, 2023</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-content-light dark:text-content-dark">
+<span class="material-symbols-outlined text-2xl">edit</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-content-light dark:text-content-dark">
+<span class="material-symbols-outlined text-2xl">more_vert</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto pb-28">
+<div class="px-4 pt-4 pb-6">
+<div class="grid grid-cols-3 gap-3">
+<div class="rounded-xl bg-mint-green-accent p-3 text-center dark:bg-surface-dark">
+<p class="text-xs text-mint-green-dark dark:text-subtle-dark">Total Spent</p>
+<p class="mt-1 text-lg font-bold text-content-light dark:text-content-dark">₹12,450</p>
+</div>
+<div class="rounded-xl bg-mint-green-accent p-3 text-center dark:bg-surface-dark">
+<p class="text-xs text-mint-green-dark dark:text-subtle-dark">Per Person</p>
+<p class="mt-1 text-lg font-bold text-content-light dark:text-content-dark">₹3,112</p>
+</div>
+<div class="rounded-xl bg-mint-green-accent p-3 text-center dark:bg-surface-dark">
+<p class="text-xs text-mint-green-dark dark:text-subtle-dark">Pending</p>
+<p class="mt-1 text-lg font-bold text-red-500">₹870</p>
+</div>
+</div>
+</div>
+<div class="px-4 pb-4">
+<div class="flex rounded-full bg-background-light p-1 dark:bg-surface-dark/50">
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': activeTab === 'expenses', 'text-subtle-light dark:text-subtle-dark': activeTab !== 'expenses'}" @click="activeTab = 'expenses'" class="flex-1 rounded-full px-4 py-2 text-center text-sm font-medium">Expenses</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': activeTab === 'members', 'text-subtle-light dark:text-subtle-dark': activeTab !== 'members'}" @click="activeTab = 'members'" class="flex-1 rounded-full px-4 py-2 text-center text-sm font-medium">Members</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': activeTab === 'insights', 'text-subtle-light dark:text-subtle-dark': activeTab !== 'insights'}" @click="activeTab = 'insights'" class="flex-1 rounded-full px-4 py-2 text-center text-sm font-medium">Insights</button>
+</div>
+</div>
+<div class="px-4">
+<div class="space-y-3" x-cloak="" x-show="activeTab === 'expenses'">
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xl">🍔</div>
+<div>
+<h3 class="text-base font-bold text-content-light dark:text-content-dark">Burger King</h3>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Paid by You, shared with 3</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-base font-bold text-content-light dark:text-content-dark">₹1,200</p>
+<p class="text-xs text-green-500">You get back ₹900</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xl">✈️</div>
+<div>
+<h3 class="text-base font-bold text-content-light dark:text-content-dark">Flight Tickets</h3>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Paid by Rohan, shared with 4</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-base font-bold text-content-light dark:text-content-dark">₹8,000</p>
+<p class="text-xs text-red-500">You owe ₹2,000</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xl">🏨</div>
+<div>
+<h3 class="text-base font-bold text-content-light dark:text-content-dark">Hotel Stay</h3>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Paid by Priya, shared with 4</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-base font-bold text-content-light dark:text-content-dark">₹3,250</p>
+<p class="text-xs text-red-500">You owe ₹812</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-soft" x-cloak="" x-show="activeTab === 'members'">
+<div class="flex flex-col">
+<div class="p-4">
+<div class="flex items-center">
+<img alt="You" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd6yuedjzS6Qf0MbCjffpK_sKfqfv7SFnKGty4pY45_7v4eGl0uW9B_Jmez1sVYiYEV15Ef4P2bU8Bq5mC1ZIhl2beNaL64LtgzDXz7vpnA6chik93PlI0Tlow9YDabg4Ywnhkj8UTukQF_5hnoR2zdPWFZnSKEIMQT6W5lNMfiK9SwvaEpPpv-9jpcUKsmrAQGZQFHqIjbgUazPr2PJ8tyqkYVSlSj7aN632URXN2eRY6dUX2dWLzvpLHJYO3UsbxWljrrmKVF3j0"/>
+<div class="ml-4 flex-1">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-bold text-content-light dark:text-content-dark">You</h3>
+<p class="text-xs text-green-500">Gets back</p>
+</div>
+<p class="text-sm font-medium text-green-500">₹888</p>
+</div>
+<p class="text-xs text-subtle-light dark:text-subtle-dark mt-2">Total spent: ₹1,200</p>
+</div>
+</div>
+</div>
+<div class="border-t border-border-light dark:border-border-dark"></div>
+<div class="p-4">
+<div class="flex items-center">
+<img alt="Rohan" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgrrLmWPMaZ04U70E_FdBrg3z88Gy9TekIBxxl2o-tqoXULpGrQlkLvvIvotLTCX4W9HhWN9VgB8vnKT-aj8xPzgJ4X-hoN88OvsogcHw3omKnG6kYTq-iygSL0PbY3_A6jPQAi09-nnAFft0SnH8ln4PAqdus6qnPXC4i_Y2Dd03G79hJU-3SWBFyNFadKBhGpzt40GKp7MjwotZdp_e9RuInYzvuXUjr-pvs_E2C1dL32wevc33BI-8fx-pNMB8PFYb-OOY4zC-w"/>
+<div class="ml-4 flex-1">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-bold text-content-light dark:text-content-dark">Rohan</h3>
+<p class="text-xs text-green-500">Gets back</p>
+</div>
+<p class="text-sm font-medium text-green-500">₹4,888</p>
+</div>
+<button class="mt-3 w-full rounded-full bg-mint-green-accent py-2 text-sm font-semibold text-mint-green-dark dark:bg-mint-green-dark dark:text-mint-green-accent">Settle UPI</button>
+<p class="text-xs text-subtle-light dark:text-subtle-dark mt-2">Total spent: ₹8,000</p>
+</div>
+</div>
+</div>
+<div class="border-t border-border-light dark:border-border-dark"></div>
+<div class="p-4">
+<div class="flex items-center">
+<img alt="Priya" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7Cd2ABAxT2CvFAmz3IBpk-jfZ7riRrOhCSnBknxiCU2bYO9SgILygRw888i6ZfKnTpe272IMg0q4MuQTUZEzj3W1NmtiEnRcO4Y1-hWc5fYQlN3BT896bGVkxJLhqOgjLhVd-yQa8OJY-DwAkO1HFuA3JXpuh19Qchgd6RXJHMIb7I676Al-0cQEeYkSuP7cZiDZy4GdxFL38W0cE3-N3WvBcqoGq9qSw1qfhC2YGkVZpta004F3v7-_QTXhb3zI5cPs2ca6iv4qd"/>
+<div class="ml-4 flex-1">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-bold text-content-light dark:text-content-dark">Priya</h3>
+<p class="text-xs text-red-500">Owes</p>
+</div>
+<p class="text-sm font-medium text-red-500">₹138</p>
+</div>
+<button class="mt-3 w-full rounded-full bg-mint-green-accent py-2 text-sm font-semibold text-mint-green-dark dark:bg-mint-green-dark dark:text-mint-green-accent">Settle UPI</button>
+<p class="text-xs text-subtle-light dark:text-subtle-dark mt-2">Total spent: ₹3,250</p>
+</div>
+</div>
+</div>
+<div class="border-t border-border-light dark:border-border-dark"></div>
+<div class="p-4">
+<div class="flex items-center">
+<div class="h-10 w-10 rounded-full bg-subtle-light flex items-center justify-center text-white font-bold text-lg">S</div>
+<div class="ml-4 flex-1">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-bold text-content-light dark:text-content-dark">Sunita</h3>
+<p class="text-xs text-red-500">Owes</p>
+</div>
+<p class="text-sm font-medium text-red-500">₹3,112</p>
+</div>
+<button class="mt-3 w-full rounded-full bg-mint-green-accent py-2 text-sm font-semibold text-mint-green-dark dark:bg-mint-green-dark dark:text-mint-green-accent">Settle UPI</button>
+<p class="text-xs text-subtle-light dark:text-subtle-dark mt-2">Total spent: ₹0</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4" x-cloak="" x-show="activeTab === 'insights'">
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<h3 class="mb-3 text-base font-bold text-content-light dark:text-content-dark">Spending Breakdown</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-sm">
+<p>✈️ Travel</p>
+<p class="font-medium">₹8,000</p>
+</div>
+<div class="mt-1 h-2 w-full rounded-full bg-background-light dark:bg-background-dark">
+<div class="h-2 rounded-full bg-primary" style="width: 64%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm">
+<p>🏨 Stay</p>
+<p class="font-medium">₹3,250</p>
+</div>
+<div class="mt-1 h-2 w-full rounded-full bg-background-light dark:bg-background-dark">
+<div class="h-2 rounded-full bg-primary" style="width: 26%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm">
+<p>🍔 Food</p>
+<p class="font-medium">₹1,200</p>
+</div>
+<div class="mt-1 h-2 w-full rounded-full bg-background-light dark:bg-background-dark">
+<div class="h-2 rounded-full bg-primary" style="width: 10%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-mint-green-accent p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined mt-1 text-2xl text-mint-green-dark dark:text-primary">auto_awesome</span>
+<div>
+<h4 class="font-bold text-content-light dark:text-content-dark">AI Insight</h4>
+<p class="mt-1 text-sm text-subtle-light dark:text-subtle-dark">Travel was your biggest expense category, accounting for 64% of the total spend. To save money on your next trip, consider booking flights in advance or traveling during the off-season.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-24 right-1/2 translate-x-1/2 transform" x-show="activeTab === 'expenses'">
+<button class="flex h-14 items-center justify-center gap-2 rounded-full bg-primary px-6 text-black shadow-lg">
+<span class="material-symbols-outlined">add</span>
+<span class="text-base font-bold">Add Expense</span>
+</button>
+</div>
+<nav class="fixed bottom-0 left-0 right-0 z-10 mx-auto max-w-md border-t border-border-light bg-white/80 pb-3 pt-2 backdrop-blur-sm dark:border-border-dark dark:bg-background-dark/80">
+<div class="flex justify-around">
+<a class="flex flex-col items-center gap-1.5 pt-1 text-subtle-light dark:text-subtle-dark" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 pt-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-xs font-bold">Groups</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 pt-1 text-subtle-light dark:text-subtle-dark" href="#">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<span class="text-xs font-medium">Insights</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 pt-1 text-subtle-light dark:text-subtle-dark" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+
+</body></html>

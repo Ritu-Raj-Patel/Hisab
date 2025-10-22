@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hisab.AI Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#25D366",
+              "background-light": "#F7F8FA",
+              "background-dark": "#121212",
+              "card-light": "#FFFFFF",
+              "card-dark": "#1E1E1E",
+              "text-light": "#1C1C1E",
+              "text-dark": "#E5E5E7",
+              "subtext-light": "#6B7280",
+              "subtext-dark": "#9CA3AF"
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: '1rem',
+              lg: '1.5rem',
+              xl: '2rem'
+            },
+          },
+        },
+      };
+    </script>
+<style>
+      .material-icons {
+        font-size: inherit;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="max-w-sm mx-auto p-4 flex flex-col h-screen">
+<header class="flex justify-between items-center py-4">
+<div class="flex items-center space-x-3">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUJfmSFKlI3iHnDr4ykEiHXud2jXYgnuWZVG8EmFa5hKmEs08qjPvLC0JWlsEd6mA_3BWs-CINSbB_Bv3aaSkyhg6annOcqy5CndN2Wqi2xgOTZe41SHnliDCvJVZhQDURs9WMAaFENamFmxWBiDpu5JXffbCEcGt39FayW4GmGMMA6vJjvFhe0LQKDwV5tIKvDOvKB7Jawzt3vwKmV0yRlvIf4m9Zso5-DqN-tOKg6VbTsmevmAq2La92SvM_niLRkoZzvxsyI8aK"/>
+<div>
+<p class="text-sm text-subtext-light dark:text-subtext-dark">Good Morning,</p>
+<p class="font-semibold text-lg">Bella</p>
+</div>
+</div>
+<button class="text-2xl">
+<span class="material-icons">menu</span>
+</button>
+</header>
+<section class="mt-6">
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+<p class="text-xs text-subtext-light dark:text-subtext-dark">Total Expenses</p>
+<p class="font-bold text-lg mt-1">$1,250</p>
+</div>
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+<p class="text-xs text-subtext-light dark:text-subtext-dark">Pending</p>
+<p class="font-bold text-lg mt-1">$215</p>
+</div>
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+<p class="text-xs text-subtext-light dark:text-subtext-dark">Your Balance</p>
+<p class="font-bold text-lg mt-1">$5,830</p>
+</div>
+</div>
+</section>
+<section class="mt-8 flex-grow">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-bold">Recent Activity</h2>
+<a class="text-sm text-primary" href="#">View all</a>
+</div>
+<div class="space-y-3">
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+<img alt="Starbucks logo" class="w-7 h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNk46Z9p98FwcPb_nxMmAIw9WoFWChh9R1SvXF6phDVeSuhEKsKAxj1IssD2DQBMQVQ24VwEdTs5MF0dBGRl3wUrlqUv482-jWMixGeBT-775pl9eYIV9OB-yNdg3wxicvtt2da4CUSld4QYPjADKgR9A-o-6mAUvxNqNcHIoEmuAuU4oDtz60i2qOGx8xx_Pnw9KBTsENiVJyWhOfeuTfdMhjX4Ty3wDNaTL4dMMjFER4A3WspivsXS2hYnogNEZBi2dSQB-1gH1c"/>
+</div>
+<div>
+<p class="font-semibold">Starbucks Coffee</p>
+<p class="text-sm text-subtext-light dark:text-subtext-dark">10 Dec, 2022 | 09:30</p>
+</div>
+</div>
+<p class="font-bold text-lg">$83.27</p>
+</div>
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+<img alt="KFC logo" class="w-7 h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5ujlAEYOPnyD3ujgGxv5P7V0iVkk24lXO0jtKI68-Oll8GRXKueRAbpsbKMjqMx0lJvk9pZ3AtfIis4k1fUMRIHfqrna2kJaQdrvd-HWj2VhqFd4_2b_AZk_gCrP30yVhRUSEXIIQyt6smHOyT1YwRgPelR70SUl5BWAR0DFttjRuotEqnSki1ucSmyReQHKtYTKEVfxSCnjIHkKGYImTvXG8yuUK4dnEXV0Brg0ZfAgcfDtSTWmAYm1fJC2sh__vadZssPt37kkn"/>
+</div>
+<div>
+<p class="font-semibold">KFC Cafe</p>
+<p class="text-sm text-subtext-light dark:text-subtext-dark">10 Dec, 2022 | 09:30</p>
+</div>
+</div>
+<p class="font-bold text-lg">$61.43</p>
+</div>
+<div class="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+<img alt="McDonald's logo" class="w-7 h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj3i2E1ywDDt9ecO1Pu6wnMIFf1efY7It7W0CD-Q_if3o9OhcGo5ybpIBLA-UVo-EtBBrTX_lKlIxNgHr1A2XBkev1xBFOBrFmzBytyzLFEnkQl9farZfpdY8fq-OL5Mxc0DVMQz8lk4d09hiMzti72meYS7bmp7NSQfDeeWRnzLFMd3BdtJqeOw9gITzTcllpSTa5eW7MLad0pNSGVG_Khkbp1nL7G-o4-MwlCPHj9rO4t039PQ5AGP98xdMj1HHqJTN7fMw4jHTG"/>
+</div>
+<div>
+<p class="font-semibold">McD Sudirman</p>
+<p class="text-sm text-subtext-light dark:text-subtext-dark">09 Dec, 2022 | 14:00</p>
+</div>
+</div>
+<p class="font-bold text-lg">$24.50</p>
+</div>
+</div>
+</section>
+<section class="mt-8 mb-24">
+<h2 class="text-xl font-bold mb-4">Friends Nearby</h2>
+<div class="flex space-x-4 overflow-x-auto pb-2 -mx-4 px-4">
+<div class="flex-shrink-0 text-center">
+<div class="w-16 h-16 rounded-full bg-primary/20 border-2 border-dashed border-primary flex items-center justify-center">
+<span class="material-icons text-primary text-3xl">add</span>
+</div>
+<p class="mt-2 text-sm">Add New</p>
+</div>
+<div class="flex-shrink-0 text-center">
+<img alt="Friend avatar" class="w-16 h-16 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS-hiTwDPSqGfjyW6Sa3PIjx95WdmqDxIEzRZ0Clcedf3cTLAivMrlWFYs76u3IFWWbkT5yK648O3JLCh5q6rxFJnaSB59iyRqJIu8gXxCEErki6_58xkKD_IQPheEbqvmvFCcsNH1cvv5fE2r2RLxJR8u_UGC_TNaYsl10ePZmeo_pvirpnLbrJOJP9CPgcMQAxFmBM-x-ZOAX3yd5PxBrwmIb_JSF-kgdQBI44pLIrR1U9aOPVzESK1OxyFFkmM3V9ppXY70Nfz-"/>
+<p class="mt-2 text-sm">Floyd</p>
+</div>
+<div class="flex-shrink-0 text-center">
+<img alt="Friend avatar" class="w-16 h-16 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp7S6_DSkEXFpyU146-cUJLdG619hUUKqb1UIuPNxTi8LgsAP3qGAuyG8F4C0hPthb7xRCHVuYAaHiLyiDmlaJqOwSPNplxaa6ZMTZyQlUYQsudBM8W1GSwn-9EKtsNT2nHfa6TLV0NI33A0VwJWzd8b3couhuhXkkS1adu9yF9cD4mnX6nvQ0yrFhSn_CrwX-wVLfpq5_ouaO5k_j4V2ug9wOvRkMEWXU-jSpTyuRJmqJIZN0d62uu4tsi8KV65miRxv12tJrgW9m"/>
+<p class="mt-2 text-sm">Albert</p>
+</div>
+<div class="flex-shrink-0 text-center">
+<img alt="Friend avatar" class="w-16 h-16 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS1Q8-il2ygKfPjvOQTloTxq6xcEwFk0_b-lN2mzosvNgCoQeVtj_ejGiWnv91pAydrkCO7mWrVQBWrrUdV_HlFIKx9JwWx7hsL__9CQO_porY3qZrbx7DIcO84UJrbPa3rXNcnNTjrBGb5RWuqxKCmitYmfUTF0GscTEO9_f7pTi80DMgLvxHGH2tVFW85XX7iTdpLUBvCTZjulbQIsTeETwzxOcsQjbXEtNKO-OeTGlntuRu9yOMfwCBBwk6L6esbXs-1URAVvaK"/>
+<p class="mt-2 text-sm">Bessie</p>
+</div>
+<div class="flex-shrink-0 text-center">
+<img alt="Friend avatar" class="w-16 h-16 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOMBvw7koMUDDyuZ4toS9sQUNitoKxSJoAcIszQyvx9LCv-c1s6hVOYh2DphqS2j-01pYmoDKtbVTwdwmCyicGEXRvOZqzqsh17gyUR4hpiadqfg7wPh161T79NhCGWQZpI-zOnkc7FJU0-PFqyBT7CnZCMja0Q73VttpDX6wW8f7Wdy4QYGa8thtVx0m1cQSXKlGSx-diCk5VhEW1tnc3a2ABoorusTrswepwpu4eitdBUteJ1eFy_omuHoRLW__L6nBjtZXHTp38"/>
+<p class="mt-2 text-sm">Cody</p>
+</div>
+<div class="flex-shrink-0 text-center">
+<img alt="Friend avatar" class="w-16 h-16 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNfLs7I9ZF4jjk0IUZQerUoIoUjX8xin-3BixRwcEd3GZ3gDWeO7G3-k9V9HXoIIQO_CtQmpon-HbjfbS4aO90D99uK5QVlRA0a9CiCb17T6G5MZnIo7aZEwXvM0NStN519bZbmyBWfQEoYs8DSzqurbOzSjPgnAixBYbmzLTpj0a3V-QSBNzDNChOXzn-MTQbYiuQh8jH5pB0Awj6XrTriv6MGRbKidsJE6z_O8jttZYbNJ_Gg4eHvJMwx1tEZ-eeWygmn_8mG8wA"/>
+<p class="mt-2 text-sm">Jane</p>
+</div>
+</div>
+</section>
+<div class="fixed bottom-0 left-0 right-0 max-w-sm mx-auto">
+<div class="relative h-28">
+<div class="absolute bottom-16 left-1/2 -translate-x-1/2">
+<button class="bg-primary text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center text-4xl">
+<span class="material-icons">add</span>
+</button>
+</div>
+<div class="absolute bottom-0 w-full bg-card-light dark:bg-card-dark rounded-t-xl shadow-lg">
+<nav class="flex justify-around items-center h-20 text-subtext-light dark:text-subtext-dark">
+<a class="text-center text-primary flex flex-col items-center" href="#">
+<span class="material-icons">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="text-center flex flex-col items-center" href="#">
+<span class="material-icons">receipt_long</span>
+<span class="text-xs font-medium">Bills</span>
+</a>
+<div class="w-16"></div>
+<a class="text-center flex flex-col items-center" href="#">
+<span class="material-icons">wallet</span>
+<span class="text-xs font-medium">Wallet</span>
+</a>
+<a class="text-center flex flex-col items-center" href="#">
+<span class="material-icons">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

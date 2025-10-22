@@ -1,0 +1,1571 @@
+import { useEffect, useState } from 'react'
+
+const SCREENS = {
+  WELCOME: 'welcome',
+  LOGIN: 'login',
+  SUCCESS: 'success',
+  DASHBOARD: 'dashboard',
+}
+
+const stats = [
+  { label: 'Total Expenses', value: '₹1,25,000' },
+  { label: 'Pending', value: '₹12,500' },
+  { label: 'Your Balance', value: '₹58,300' },
+]
+
+const recentActivity = [
+  {
+    title: 'Starbucks Coffee',
+    time: '14 Jan, 2026 • 09:30',
+    amount: '-₹483',
+    badge: { bg: 'bg-green-100', icon: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDNk46Z9p98FwcPb_nxMmAIw9WoFWChh9R1SvXF6phDVeSuhEKsKAxj1IssD2DQBMQVQ24VwEdTs5MF0dBGRl3wUrlqUv482-jWMixGeBT-775pl9eYIV9OB-yNdg3wxicvtt2da4CUSld4QYPjADKgR9A-o-6mAUvxNqNcHIoEmuAuU4oDtz60i2qOGx8xx_Pnw9KBTsENiVJyWhOfeuTfdMhjX4Ty3wDNaTL4dMMjFER4A3WspivsXS2hYnogNEZBi2dSQB-1gH1c' },
+  },
+  {
+    title: 'Goa Getaway • Splitwise Crew',
+    time: '13 Jan, 2026 • Settled 2/4',
+    amount: '-₹8,640',
+    badge: { bg: 'bg-orange-100', icon: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBx7Uvn9koqRAEJmkMKYgQcdpJiCrE4KQn3iuWcZgFv0INQprIGoIrNsqhCprvhBT5Fp6Li7wY-Wor1ASHMkJ5hWKHaJXzdSPIXRb2Q9qAC9wsLlAkbBf5uG0YLKeCorrg2UkdyDpDUVfKC1Ey1DwOGW1Q5BS8bGWBiR39aBezla1qsBeuCkLL8Um3ug056Kxg5iE0YFHVDSFcBZ3u8B0YH7R6GeyaBDZ3p472Oy0TgDqO44c' },
+  },
+  {
+    title: 'Rent • Riverside Flatmates',
+    time: '12 Jan, 2026 • Due in 3 days',
+    amount: '-₹18,000',
+    badge: { bg: 'bg-blue-100', icon: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBaDqhUh9qe5JoHCDIbfsxeKv1KjYwzKyrKTm2oKHG_c05zmVbVrdU3QWysFLtqJPaELX2wYC0XVJS01Om5w86hz4sDydfkWWS81BVMf5M7ZaNqHz_j2gGQK8pMnPGH3Gsk_jYdrc-8N_gvzc0AC1if-Hwx9cFUIa6SEU6Y0SSXNFNOS01N2I' },
+  },
+]
+
+const smartInsights = [
+  {
+    title: 'Travel budget alert',
+    body: 'You are tracking 92% of your January travel budget. Weekend trip may exceed limit by ₹1,800.',
+  },
+  {
+    title: 'Subscription tip',
+    body: 'Switch Spotify Duo → Family to save ₹1,440 this year. 3 friends already on Premium nearby.',
+  },
+]
+
+const assistantPrompts = [
+  '“How much did I spend on Zomato last month?”',
+  '“Goa trip ka total kharcha kitna hua?”',
+  '“Set a travel budget for next weekend.”',
+]
+
+const friends = [
+  { name: 'Floyd', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAS-hiTwDPSqGfjyW6Sa3PIjx95WdmqDxIEzRZ0Clcedf3cTLAivMrlWFYs76u3IFWWbkT5yK648O3JLCh5q6rxFJnaSB59iyRqJIu8gXxCEErki6_58xkKD_IQPheEbqvmvFCcsNH1cvv5fE2r2RLxJR8u_UGC_TNaYsl10ePZmeo_pvirpnLbrJOJP9CPgcMQAxFmBM-x-ZOAX3yd5PxBrwmIb_JSF-kgdQBI44pLIrR1U9aOPVzESK1OxyFFkmM3V9ppXY70Nfz-' },
+  { name: 'Albert', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAp7S6_DSkEXFpyU146-cUJLdG619hUUKqb1UIuPNxTi8LgsAP3qGAuyG8F4C0hPthb7xRCHVuYAaHiLyiDmlaJqOwSPNplxaa6ZMTZyQlUYQsudBM8W1GSwn-9EKtsNT2nHfa6TLV0NI33A0VwJWzd8b3couhuhXkkS1adu9yF9cD4mnX6nvQ0yrFhSn_CrwX-wVLfpq5_ouaO5k_j4V2ug9wOvRkMEWXU-jSpTyuRJmqJIZN0d62uu4tsi8KV65miRxv12tJrgW9m' },
+  { name: 'Bessie', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBS1Q8-il2ygKfPjvOQTloTxq6xcEwFk0_b-lN2mzosvNgCoQeVtj_ejGiWnv91pAydrkCO7mWrVQBWrrUdV_HlFIKx9JwWx7hsL__9CQO_porY3qZrbx7DIcO84UJrbPa3rXNcnNTjrBGb5RWuqxKCmitYmfUTF0GscTEO9_f7pTi80DMgLvxHGH2tVFW85XX7iTdpLUBvCTZjulbQIsTeETwzxOcsQjbXEtNKO-OeTGlntuRu9yOMfwCBBwk6L6esbXs-1URAVvaK' },
+  { name: 'Cody', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAOMBvw7koMUDDyuZ4toS9sQUNitoKxSJoAcIszQyvx9LCv-c1s6hVOYh2DphqS2j-01pYmoDKtbVTwdwmCyicGEXRvOZqzqsh17gyUR4hpiadqfg7wPh161T79NhCGWQZpI-zOnkc7FJU0-PFqyBT7CnZCMja0Q73VttpDX6wW8f7Wdy4QYGa8thtVx0m1cQSXKlGSx-diCk5VhEW1tnc3a2ABoorusTrswepwpu4eitdBUteJ1eFy_omuHoRLW__L6nBjtZXHTp38' },
+  { name: 'Jane', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBNfLs7I9ZF4jjk0IUZQerUoIoUjX8xin-3BixRwcEd3GZ3gDWeO7G3-k9V9HXoIIQO_CtQmpon-HbjfbS4aO90D99uK5QVlRA0a9CiCb17T6G5MZnIo7aZEwXvM0NStN519bZbmyBWfQEoYs8DSzqurbOzSjPgnAixBYbmzLTpj0a3V-QSBNzDNChOXzn-MTQbYiuQh8jH5pB0Awj6XrTriv6MGRbKidsJE6z_O8jttZYbNJ_Gg4eHvJMwx1tEZ-eeWygmn_8mG8wA' },
+]
+
+const groups = [
+  {
+    id: 'weekend-getaway',
+    name: 'Weekend Getaway',
+    members: 4,
+    status: 'active',
+    statusLabel: 'Ongoing',
+    statusColor: 'text-primary',
+    statusBg: 'bg-primary/20',
+    emoji: '🏖️',
+    total: '₹32,400',
+    summary: 'You owe',
+    balance: '₹2,850',
+    balanceColor: 'text-red-500',
+    avatars: [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDBILlCMrFMXS4Ewb7-9eAox_76PtzfuLQurpRdud--0ld7eTw_EcZnamLByS7yeZ23JxSwDUNOVj9M9ossjgRv35Z1wAN0PqX3XkeGHnLq9qMnNkslI_HVWQgZScC_c4eLcIBVOBlGLxUQ3l5pHmW4DHY3YqdwWWfH4rjidXXGXJ9TwjqEWRzsl8q2qfX35CqlJP_5pVU3051ofa8760f0HficEXefX_nGflCL4BLCngECRfEN9WsVU6TwjK1s6W00uSypXUHmZzen',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAz1-6GYa1P8DqgnOXHQVz333UWgZ5DymkvEp0lM-obgoPPRV3Cq0CfRba-u8kVP4QTh2DY2ujnjBes-H3d4qIYJG1beCHqWfXV1XQ6p7mrjSq5Sufi4gmcZOqggul9E59BY72JuAdZO2_bndzWaZ2uF03E3Gb-GcEIez8_TO9whH1NQ5lCIv2cPhktKgpKuoSyPnBxp6aTE-yw_VXJovHCc6dC481tZU_OGe4Qqza6KPnUhOHP97X9BZ1DoSvEw2em2qJXhGUltHG-',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAphdcU10CVrZiMNSVByk3Tt05XMcYZp_XUQdTgK2IXdsB3l4AFd0drwjFLLgo4I03vvrE9tBpPU0AqwVkBVl-pWi-mqFf87W65wFdbOtZo8TvfVtwWg88uuP4mz7rSik4LD4xKjcYeZMPpLP4an25rl-MDmDU8yr2xZYSi006scUHSgP_ccJbnQ_wQv1fU_eH_UJ6GjVs4Zgrv2nTOXs3SuSnSUERfBC4J-3SdFrfc6ZkmmCTtxT8crQTMDdV-W6Y7twkYAoN8UIij',
+    ],
+  },
+  {
+    id: 'project-lunch',
+    name: 'Project Team Lunch',
+    members: 3,
+    status: 'unsettled',
+    statusLabel: 'Pending',
+    statusColor: 'text-yellow-600',
+    statusBg: 'bg-yellow-100',
+    emoji: '💼',
+    total: '₹6,420',
+    summary: 'You are owed',
+    balance: '₹980',
+    balanceColor: 'text-green-500',
+    avatars: [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAgrrLmWPMaZ04U70E_FdBrg3z88Gy9TekIBxxl2o-tqoXULpGrQlkLvvIvotLTCX4W9HhWN9VgB8vnKT-aj8xPzgJ4X-hoN88OvsogcHw3omKnG6kYTq-iygSL0PbY3_A6jPQAi09-nnAFft0SnH8ln4PAqdus6qnPXC4i_Y2Dd03G79hJU-3SWBFyNFadKBhGpzt40GKp7MjwotZdp_e9RuInYzvuXUjr-pvs_E2C1dL32wevc33BI-8fx-pNMB8PFYb-OOY4zC-w',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA7Cd2ABAxT2CvFAmz3IBpk-jfZ7riRrOhCSnBknxiCU2bYO9SgILygRw888i6ZfKnTpe272IMg0q4MuQTUZEzj3W1NmtiEnRcO4Y1-hWc5fYQlN3BT896bGVkxJLhqOgjLhVd-yQa8OJY-DwAkO1HFuA3JXpuh19Qchgd6RXJHMIb7I676Al-0cQEeYkSuP7cZiDZy4GdxFL38W0cE3-N3WvBcqoGq9qSw1qfhC2YGkVZpta004F3v7-_QTXhb3zI5cPs2ca6iv4qd',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCM8wGldLkSQLPpUN8yMDRvbHs-t2fuwsLsTwqNv8JojHUSNHwyjCebljLIOHTl0iW9SVk_IQZSvhtjVlkW7HfYvpNq3tLfRFdZi1aZES_tQtfeh664qzV4HJAxoqMsoZVcm1e2dQJuaZxrE05Rhw-PnZZGAvzzi410Ml0CkGZVzYz1CTDKn_CXupk2tot-Np4qOTwGOmdHJp1vp1GnuyN10UjEdouWNeKm4QVZmHxpD5l6eHSqZKkqYnMbjsKVhgob0-oMcBCsBc0i',
+    ],
+  },
+  {
+    id: 'flatmates',
+    name: 'Flatmates',
+    members: 2,
+    status: 'completed',
+    statusLabel: 'Settled',
+    statusColor: 'text-green-600',
+    statusBg: 'bg-green-100',
+    emoji: '🏠',
+    total: '₹1,02,800',
+    summary: 'All Settled',
+    balance: '',
+    balanceColor: 'text-text-muted',
+    avatars: [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAx9qccQWLf0BkYppAdoxcg2xHf6x-3ij_AekSSxY6GOhdzlpBjLjz2p7ej5YyicEu3iKgOjOCQBmZR4KhJOwufuzM5lDqHwTCY9nOWeU5gGahI2Pm14kZQ171rYO7oD_85zMuAlrmjhdI5MvN0DnIBte8biP1LtPCZgjkXXqXLJke5oobtrW_amKvmWYGuWCGsf3UFRRO0jlJJm4A02zwl8KcrnnFv2JC5iiaZ8O13pay9JivtnUeGfl8Jd0fm7YygUVZPq7I7yUU3',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDAXDvWQRYqy0tlPL_ObHE6pSPhtQf8BptuIOaTEBTUqVZxOySPHobClupA9Xz6tD2iSEMUzolonQyCfPBLB07IFkkpi-9s6WDsWqCiAVgSqEgtiqS2Nfor5p32MxlG89PlKTK9qpbsP6Y9U7vXNV538jwWGMaiGCzl2E3Llmmfvv25hHbt9mDRN5CbL3SzYFET6jVqnMZHeXr48ieLvQ3MotiYMG5DTGlgu-GVkeDUntYpg0jw1yA4-od3BEPlz9LBQGl4YxkOMJi0',
+    ],
+  },
+]
+
+const groupDetails = {
+  'weekend-getaway': {
+    title: 'Goa Trip 🏖️',
+    createdOn: 'Created on 24th Nov, 2023',
+    metrics: [
+      { label: 'Total Spent', value: '₹12,450', bgClass: 'bg-emerald-50', captionClass: 'text-emerald-700', valueClass: 'text-text-light' },
+      { label: 'Per Person', value: '₹3,112', bgClass: 'bg-emerald-50', captionClass: 'text-emerald-700', valueClass: 'text-text-light' },
+      { label: 'Pending', value: '₹870', bgClass: 'bg-emerald-50', captionClass: 'text-emerald-700', valueClass: 'text-red-500' },
+    ],
+    expenses: [
+      {
+        id: 'burger-king',
+        emoji: '🍔',
+        title: 'Burger King',
+        note: 'Paid by You, shared with 3',
+        amount: '₹1,200',
+        status: 'You get back ₹900',
+        statusClass: 'text-green-500',
+      },
+      {
+        id: 'flight-tickets',
+        emoji: '✈️',
+        title: 'Flight Tickets',
+        note: 'Paid by Rohan, shared with 4',
+        amount: '₹8,000',
+        status: 'You owe ₹2,000',
+        statusClass: 'text-red-500',
+      },
+      {
+        id: 'hotel-stay',
+        emoji: '🏨',
+        title: 'Hotel Stay',
+        note: 'Paid by Priya, shared with 4',
+        amount: '₹3,250',
+        status: 'You owe ₹812',
+        statusClass: 'text-red-500',
+      },
+    ],
+    members: [
+      {
+        id: 'you',
+        name: 'You',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBd6yuedjzS6Qf0MbCjffpK_sKfqfv7SFnKGty4pY45_7v4eGl0uW9B_Jmez1sVYiYEV15Ef4P2bU8Bq5mC1ZIhl2beNaL64LtgzDXz7vpnA6chik93PlI0Tlow9YDabg4Ywnhkj8UTukQF_5hnoR2zdPWFZnSKEIMQT6W5lNMfiK9SwvaEpPpv-9jpcUKsmrAQGZQFHqIjbgUazPr2PJ8tyqkYVSlSj7aN632URXN2eRY6dUX2dWLzvpLHJYO3UsbxWljrrmKVF3j0',
+        note: 'Paid ₹1,200',
+        summary: 'Owed ₹1,870',
+        summaryClass: 'text-green-500',
+        settleAmount: '₹1,870',
+      },
+      {
+        id: 'rohan',
+        name: 'Rohan',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgrrLmWPMaZ04U70E_FdBrg3z88Gy9TekIBxxl2o-tqoXULpGrQlkLvvIvotLTCX4W9HhWN9VgB8vnKT-aj8xPzgJ4X-hoN88OvsogcHw3omKnG6kYTq-iygSL0PbY3_A6jPQAi09-nnAFft0SnH8ln4PAqdus6qnPXC4i_Y2Dd03G79hJU-3SWBFyNFadKBhGpzt40GKp7MjwotZdp_e9RuInYzvuXUjr-pvs_E2C1dL32wevc33BI-8fx-pNMB8PFYb-OOY4zC-w',
+        note: 'Paid ₹8,000',
+        summary: 'Owed ₹4,888',
+        summaryClass: 'text-green-500',
+        settleAmount: '₹4,888',
+      },
+      {
+        id: 'priya',
+        name: 'Priya',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA7Cd2ABAxT2CvFAmz3IBpk-jfZ7riRrOhCSnBknxiCU2bYO9SgILygRw888i6ZfKnTpe272IMg0q4MuQTUZEzj3W1NmtiEnRcO4Y1-hWc5fYQlN3BT896bGVkxJLhqOgjLhVd-yQa8OJY-DwAkO1HFuA3JXpuh19Qchgd6RXJHMIb7I676Al-0cQEeYkSuP7cZiDZy4GdxFL38W0cE3-N3WvBcqoGq9qSw1qfhC2YGkVZpta004F3v7-_QTXhb3zI5cPs2ca6iv4qd',
+        note: 'Paid ₹3,250',
+        summary: 'Owes ₹138',
+        summaryClass: 'text-red-500',
+        settleAmount: '₹138',
+      },
+      {
+        id: 'sunita',
+        name: 'Sunita',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAphdcU10CVrZiMNSVByk3Tt05XMcYZp_XUQdTgK2IXdsB3l4AFd0drwjFLLgo4I03vvrE9tBpPU0AqwVkBVl-pWi-mqFf87W65wFdbOtZo8TvfVtwWg88uuP4mz7rSik4LD4xKjcYeZMPpLP4an25rl-MDmDU8yr2xZYSi006scUHSgP_ccJbnQ_wQv1fU_eH_UJ6GjVs4Zgrv2nTOXs3SuSnSUERfBC4J-3SdFrfc6ZkmmCTtxT8crQTMDdV-W6Y7twkYAoN8UIij',
+        note: 'Paid ₹0',
+        summary: 'Owes ₹3,112',
+        summaryClass: 'text-red-500',
+        settleAmount: '₹3,112',
+      },
+    ],
+    insights: {
+      breakdown: [
+        { label: '✈️ Travel', amount: '₹8,000', percent: 64 },
+        { label: '🏨 Stay', amount: '₹3,250', percent: 26 },
+        { label: '🍔 Food', amount: '₹1,200', percent: 10 },
+      ],
+      aiTip:
+        'Travel was your biggest expense category, accounting for 64% of the total spend. To save money on your next trip, consider booking flights in advance or traveling during the off-season.',
+    },
+  },
+}
+
+const buildDefaultGroupDetail = (group) => {
+  if (!group) {
+    return {
+      title: 'Group',
+      createdOn: '',
+      metrics: [],
+      expenses: [],
+      members: [],
+      insights: { breakdown: [], aiTip: '' },
+    }
+  }
+
+  return {
+    title: group.name,
+    createdOn: 'Keep adding expenses to unlock smart insights.',
+    metrics: [
+      { label: 'Total Spent', value: group.total ?? '—', bgClass: 'bg-gray-100', captionClass: 'text-text-muted', valueClass: 'text-text-light' },
+      { label: 'Members', value: `${group.members}`, bgClass: 'bg-gray-100', captionClass: 'text-text-muted', valueClass: 'text-text-light' },
+      { label: 'Status', value: group.statusLabel, bgClass: 'bg-gray-100', captionClass: 'text-text-muted', valueClass: 'text-text-light' },
+    ],
+    expenses: [],
+    members: group.avatars.slice(0, group.members).map((avatar, index) => ({
+      id: `${group.id}-member-${index}`,
+      name: `Member ${index + 1}`,
+      avatar,
+      note: 'Expense data pending',
+      summary: '',
+      summaryClass: 'text-text-muted',
+      settleAmount: '₹0',
+    })),
+    insights: { breakdown: [], aiTip: 'Add expenses to see AI insights for this group.' },
+  }
+}
+
+function App() {
+  const [screen, setScreen] = useState(SCREENS.WELCOME)
+  const [showAddFriend, setShowAddFriend] = useState(false)
+  const [inviteMethod, setInviteMethod] = useState('phone')
+  const [inviteValue, setInviteValue] = useState('')
+  const [toast, setToast] = useState(null)
+  const [dashboardTab, setDashboardTab] = useState('home')
+  const [selectedGroupId, setSelectedGroupId] = useState(null)
+
+  useEffect(() => {
+    if (!toast) return
+    const id = setTimeout(() => setToast(null), 2800)
+    return () => clearTimeout(id)
+  }, [toast])
+
+  const handleInviteSend = () => {
+    if (!inviteValue.trim()) {
+      setToast('Please enter phone or email to send an invite.')
+      return
+    }
+
+    const label = inviteMethod === 'phone' ? `+91 ${inviteValue}` : inviteValue
+    setToast(`Invite sent to ${label}`)
+    setShowAddFriend(false)
+    setInviteValue('')
+  }
+
+  const handleDashboardTabChange = (tab) => {
+    if (tab === 'groupDetail') {
+      setDashboardTab('groupDetail')
+      return
+    }
+
+    if (tab === 'groups') {
+      setSelectedGroupId(null)
+      setDashboardTab('groups')
+      return
+    }
+
+    setSelectedGroupId(null)
+    setDashboardTab(tab)
+  }
+
+  return (
+    <div className="min-h-screen bg-background-light">
+      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col">
+        {screen === SCREENS.WELCOME && (
+          <WelcomeScreen
+            onGetStarted={() => setScreen(SCREENS.LOGIN)}
+            onContinueGoogle={() => setScreen(SCREENS.SUCCESS)}
+            onContinuePhone={() => setScreen(SCREENS.LOGIN)}
+          />
+        )}
+
+        {screen === SCREENS.LOGIN && (
+          <LoginScreen
+            onSubmit={() => setScreen(SCREENS.SUCCESS)}
+            onBack={() => setScreen(SCREENS.WELCOME)}
+          />
+        )}
+
+        {screen === SCREENS.SUCCESS && (
+          <SuccessScreen
+            onGoToDashboard={() => {
+              setDashboardTab('home')
+              setScreen(SCREENS.DASHBOARD)
+            }}
+            onInviteFriend={() => {
+              setDashboardTab('groups')
+              setScreen(SCREENS.DASHBOARD)
+              setShowAddFriend(true)
+            }}
+          />
+        )}
+
+        {screen === SCREENS.DASHBOARD && (
+          <DashboardScreen
+            activeTab={dashboardTab}
+            onTabChange={handleDashboardTabChange}
+            selectedGroupId={selectedGroupId}
+            onOpenGroup={(groupId) => {
+              setSelectedGroupId(groupId)
+              setDashboardTab('groupDetail')
+            }}
+            onOpenInvite={() => {
+              setShowAddFriend(true)
+              setInviteMethod('phone')
+            }}
+          />
+        )}
+      </div>
+
+      {showAddFriend && screen === SCREENS.DASHBOARD && (
+        <AddFriendModal
+          method={inviteMethod}
+          value={inviteValue}
+          onChange={setInviteValue}
+          onSelectMethod={setInviteMethod}
+          onClose={() => setShowAddFriend(false)}
+          onSend={handleInviteSend}
+        />
+      )}
+
+      {toast && <Toast message={toast} />}
+    </div>
+  )
+}
+
+function WelcomeScreen({ onGetStarted, onContinueGoogle, onContinuePhone }) {
+  return (
+    <div className="relative flex min-h-screen flex-col items-center justify-between overflow-hidden px-6 py-16">
+      <div className="absolute -top-1/4 -left-1/4 h-96 w-96 -translate-x-8 rounded-full bg-primary/10 blur-3xl" />
+      <div className="absolute -bottom-1/4 -right-1/4 h-96 w-96 translate-x-8 rounded-full bg-primary/10 blur-3xl" />
+
+      <div className="z-10 mt-16 flex w-full flex-col items-center">
+        <div className="relative mb-10 flex h-36 w-36 items-center justify-center rounded-xl bg-white shadow-subtle-lg">
+          <div className="absolute inset-0 rounded-xl bg-primary/10 opacity-60" />
+          <span className="text-6xl font-black text-primary drop-shadow-sm">₹</span>
+        </div>
+        <h1 className="text-center text-4xl font-bold tracking-tight text-text-light">
+          Hi, I’m <span className="text-primary">Hisab!</span>
+        </h1>
+        <p className="mt-3 max-w-xs text-center text-base text-text-muted">
+          Your AI-powered UPI companion to split, settle, and stay mindful with money.
+        </p>
+      </div>
+
+      <div className="z-10 flex w-full max-w-sm flex-col items-center gap-3 pb-6">
+        <button
+          onClick={onGetStarted}
+          className="flex h-14 w-full items-center justify-center rounded-full bg-primary font-semibold text-white shadow-lg shadow-primary/30 transition-transform duration-200 hover:scale-105"
+        >
+          Get Started
+        </button>
+        <button
+          onClick={onContinueGoogle}
+          className="flex h-14 w-full items-center justify-center gap-2 rounded-full border border-white/60 bg-white/80 text-sm font-semibold text-text-light shadow-subtle backdrop-blur-sm transition-colors hover:bg-white"
+        >
+          <GoogleIcon />
+          Continue with Google
+        </button>
+        <button
+          onClick={onContinuePhone}
+          className="flex h-14 w-full items-center justify-center rounded-full border border-white/70 bg-background-light/70 text-sm font-semibold text-text-light shadow-subtle transition-colors hover:bg-white"
+        >
+          Continue with Phone Number
+        </button>
+        <p className="pt-3 text-center text-xs text-text-muted">
+          By continuing, you agree to our Terms of Service and Privacy Policy.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function LoginScreen({ onSubmit, onBack }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    onSubmit({ email, password })
+  }
+
+  return (
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-white to-teal-50 px-6 py-12">
+      <div className="absolute -top-1/3 -left-1/3 h-96 w-96 rounded-full bg-green-200/40 blur-3xl" />
+      <div className="absolute -bottom-1/3 -right-1/3 h-96 w-96 rounded-full bg-emerald-200/40 blur-3xl" />
+
+      <div className="z-10 w-full max-w-sm">
+        <button
+          onClick={onBack}
+          className="mb-6 flex items-center gap-2 text-sm font-semibold text-primary"
+        >
+          <span className="material-icons text-base">chevron_left</span>
+          Back
+        </button>
+
+        <div className="mb-6 flex flex-col items-center">
+          <div className="relative mb-4 flex h-24 w-24 items-center justify-center rounded-xl bg-white/50 shadow-subtle-lg backdrop-blur-sm">
+            <div className="absolute inset-0 rounded-xl bg-primary/10 opacity-60" />
+            <span className="text-5xl font-black text-primary drop-shadow-sm">₹</span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800">Welcome Back</h2>
+          <p className="mt-1 text-sm text-gray-500">Sign in to your Hisab.AI account</p>
+        </div>
+
+        <div className="rounded-3xl bg-white/80 p-6 shadow-subtle-lg backdrop-blur-xl">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@email.com"
+                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-gray-900 shadow-sm outline-none transition focus:border-transparent focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="••••••••"
+                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-gray-900 shadow-sm outline-none transition focus:border-transparent focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <button
+              type="submit"
+              className="flex h-12 w-full items-center justify-center rounded-full bg-primary text-sm font-semibold text-white shadow-lg shadow-primary/30 transition-transform duration-200 hover:scale-105"
+            >
+              Continue with Email
+            </button>
+            <div className="text-right text-sm font-medium text-primary">
+              <button type="button">Forgot password?</button>
+            </div>
+          </form>
+
+          <div className="relative py-5">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs text-gray-400">
+              <span className="bg-white px-3">OR</span>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <button className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-white/80 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-white">
+              <GoogleIcon />
+              Continue with Google
+            </button>
+            <button className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-white/80 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-white">
+              <span className="material-icons text-base text-gray-500">smartphone</span>
+              Continue with Phone
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DashboardScreen({ activeTab, onTabChange, selectedGroupId, onOpenGroup, onOpenInvite }) {
+  const [groupFilter, setGroupFilter] = useState('active')
+
+  const filteredGroups = groups.filter((group) => {
+    if (groupFilter === 'active') return group.status === 'active'
+    if (groupFilter === 'completed') return group.status === 'completed'
+    if (groupFilter === 'unsettled') return group.status === 'unsettled'
+    return true
+  })
+
+  const isHomeTab = activeTab === 'home'
+  const isGroupsTab = activeTab === 'groups'
+  const isInsightsTab = activeTab === 'insights'
+  const isGroupDetailTab = activeTab === 'groupDetail'
+  const isGroupsNavActive = isGroupsTab || isGroupDetailTab
+
+  const activeGroup = groups.find((group) => group.id === selectedGroupId) ?? groups[0]
+
+  return (
+    <div className="relative flex min-h-screen flex-col bg-background-light">
+      <div className="flex-1 px-5 pb-24 pt-10">
+        {isGroupDetailTab ? (
+          <GroupDetailScreen
+            group={activeGroup}
+            onBack={() => onTabChange('groups')}
+          />
+        ) : (
+          <>
+            <header className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUJfmSFKlI3iHnDr4ykEiHXud2jXYgnuWZVG8EmFa5hKmEs08qjPvLC0JWlsEd6mA_3BWs-CINSbB_Bv3aaSkyhg6annOcqy5CndN2Wqi2xgOTZe41SHnliDCvJVZhQDURs9WMAaFENamFmxWBiDpu5JXffbCEcGt39FayW4GmGMMA6vJjvFhe0LQKDwV5tIKvDOvKB7Jawzt3vwKmV0yRlvIf4m9Zso5-DqN-tOKg6VbTsmevmAq2La92SvM_niLRkoZzvxsyI8aK"
+                  alt="User avatar"
+                  className="h-12 w-12 rounded-full"
+                />
+                <div>
+                  <p className="text-xs text-text-muted">Good Morning,</p>
+                  <p className="text-lg font-semibold">Bella</p>
+                </div>
+              </div>
+              <button className="rounded-full bg-white p-2 shadow-subtle">
+                <span className="material-icons text-xl text-text-muted">notifications</span>
+              </button>
+            </header>
+
+            {isHomeTab && (
+              <>
+                <section className="mt-6 grid grid-cols-3 gap-3">
+                  {stats.map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="flex flex-col items-center rounded-xl bg-card-light p-4 text-center shadow-subtle"
+                    >
+                      <p className="text-xs text-text-muted">{stat.label}</p>
+                      <p className="mt-1 text-base font-semibold">{stat.value}</p>
+                    </div>
+                  ))}
+                </section>
+
+                <section className="mt-8">
+                  <div className="mb-4 flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Recent Activity</h2>
+                    <button className="text-sm font-medium text-primary">View all</button>
+                  </div>
+                  <div className="space-y-3">
+                    {recentActivity.map((item) => (
+                      <article
+                        key={item.title}
+                        className="flex items-center justify-between rounded-xl bg-card-light p-4 shadow-subtle"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className={`flex h-12 w-12 items-center justify-center rounded-full ${item.badge.bg}`}>
+                            <img src={item.badge.icon} alt="activity icon" className="h-7 w-7" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-semibold text-text-light">{item.title}</p>
+                            <p className="text-xs text-text-muted">{item.time}</p>
+                          </div>
+                        </div>
+                        <p className="text-sm font-semibold text-text-light">{item.amount}</p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="mt-8">
+                  <div className="mb-3 flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Smart Insights</h2>
+                    <button className="text-xs font-medium text-primary">Refresh</button>
+                  </div>
+                  <div className="space-y-3">
+                    {smartInsights.map((insight) => (
+                      <div key={insight.title} className="rounded-xl bg-card-light p-4 shadow-subtle">
+                        <h3 className="text-sm font-semibold text-text-light">{insight.title}</h3>
+                        <p className="mt-2 text-xs text-text-muted">{insight.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="mt-10">
+                  <div className="mb-3 flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Conversational Assistant</h2>
+                    <button className="text-xs font-medium text-primary">Refresh</button>
+                  </div>
+                  <div className="space-y-3">
+                    {assistantPrompts.map((prompt) => (
+                      <button
+                        key={prompt}
+                        className="flex w-full items-center justify-between rounded-xl border border-primary/10 bg-white p-4 text-left shadow-subtle transition hover:border-primary/30"
+                      >
+                        <span className="text-sm text-text-light">{prompt}</span>
+                        <span className="material-icons text-lg text-primary">arrow_outward</span>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="mt-10">
+                  <div className="mb-3 flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Friends Nearby</h2>
+                    <button className="text-xs font-medium text-primary" onClick={onOpenInvite}>
+                      Invite
+                    </button>
+                  </div>
+                  <div className="-mx-5 flex gap-4 overflow-x-auto px-5 pb-4">
+                    <div className="flex w-16 flex-shrink-0 flex-col items-center text-center">
+                      <button
+                        onClick={onOpenInvite}
+                        className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-dashed border-primary text-primary"
+                      >
+                        <span className="material-icons text-3xl">add</span>
+                      </button>
+                      <span className="mt-2 text-xs text-text-muted">Add New</span>
+                    </div>
+                    {friends.map((friend) => (
+                      <div key={friend.name} className="flex w-16 flex-shrink-0 flex-col items-center text-center">
+                        <img src={friend.avatar} alt={friend.name} className="h-16 w-16 rounded-full object-cover" />
+                        <span className="mt-2 text-xs text-text-light">{friend.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </>
+            )}
+
+            {isGroupsTab && (
+              <section className="mt-6">
+                <div className="mb-4 flex items-center justify-between">
+                  <h2 className="text-xl font-semibold">Groups</h2>
+                  <button
+                    onClick={onOpenInvite}
+                    className="flex items-center gap-1 rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary"
+                  >
+                    <span className="material-icons text-sm">add</span>
+                    New Group
+                  </button>
+                </div>
+                <div className="rounded-full bg-white p-1 shadow-subtle">
+                  {['active', 'completed', 'unsettled'].map((filter) => (
+                    <button
+                      key={filter}
+                      onClick={() => setGroupFilter(filter)}
+                      className={`w-1/3 rounded-full px-4 py-2 text-xs font-semibold capitalize transition ${
+                        groupFilter === filter
+                          ? 'bg-primary text-white shadow-subtle'
+                          : 'text-text-muted'
+                      }`}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-4 space-y-4">
+                  {filteredGroups.map((group) => (
+                    <article
+                      key={group.id}
+                      className="rounded-2xl bg-white p-4 shadow-subtle transition hover:shadow-subtle-lg"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-2xl">
+                            {group.emoji}
+                          </div>
+                          <div>
+                            <h3 className="text-sm font-semibold text-text-light">{group.name}</h3>
+                            <p className="text-xs text-text-muted">{group.members} members</p>
+                          </div>
+                        </div>
+                        <span
+                          className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold ${group.statusBg} ${group.statusColor}`}
+                        >
+                          {group.statusLabel}
+                        </span>
+                      </div>
+
+                      <div className="mt-4 flex items-center justify-between rounded-2xl bg-background-light p-3">
+                        <div>
+                          <p className="text-[11px] uppercase tracking-wide text-text-muted">Total Spent</p>
+                          <p className="mt-0.5 text-sm font-medium text-text-light">{group.total}</p>
+                          <p className="mt-1 text-xs text-text-muted">
+                            {group.summary}
+                            {group.balance && (
+                              <span className={`ml-1 font-semibold ${group.balanceColor}`}>{group.balance}</span>
+                            )}
+                          </p>
+                          <div className="mt-3 flex -space-x-3">
+                            {group.avatars.slice(0, 3).map((avatar) => (
+                              <img
+                                key={avatar}
+                                src={avatar}
+                                alt="group member"
+                                className="h-9 w-9 rounded-full border-2 border-background-light object-cover"
+                              />
+                            ))}
+                            {group.avatars.length > 3 && (
+                              <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-dashed border-background-light bg-white text-[11px] font-semibold text-text-muted">
+                                +{group.avatars.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => onOpenGroup(group.id)}
+                          className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-primary shadow-subtle"
+                        >
+                          View Details
+                          <span className="material-icons text-sm">chevron_right</span>
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {isInsightsTab && (
+              <section className="mt-6 space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold">Smart Insights</h2>
+                  <p className="mt-1 text-xs text-text-muted">
+                    Personalised nudges to help you stay on track with your goals.
+                  </p>
+                  <div className="mt-4 space-y-4">
+                    {smartInsights.map((insight) => (
+                      <div key={insight.title} className="rounded-2xl bg-white p-5 shadow-subtle">
+                        <h3 className="text-sm font-semibold text-text-light">{insight.title}</h3>
+                        <p className="mt-2 text-sm text-text-muted">{insight.body}</p>
+                        <button className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-primary">
+                          View details
+                          <span className="material-icons text-sm">chevron_right</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-semibold">Ask Hisab</h2>
+                  <div className="mt-3 space-y-3">
+                    {assistantPrompts.map((prompt) => (
+                      <button
+                        key={prompt}
+                        className="flex w-full items-center justify-between rounded-2xl border border-primary/10 bg-white p-4 text-left shadow-subtle transition hover:border-primary/30"
+                      >
+                        <span className="text-sm text-text-light">{prompt}</span>
+                        <span className="material-icons text-lg text-primary">send</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+          </>
+        )}
+      </div>
+
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 mx-auto max-w-md px-5 pb-6">
+        {!isGroupDetailTab && (
+          <button
+            onClick={onOpenInvite}
+            className="pointer-events-auto absolute left-1/2 top-0 -translate-y-1/2 -translate-x-1/2 rounded-full bg-primary p-4 text-white shadow-lg shadow-primary/40"
+          >
+            <span className="material-icons text-3xl">add</span>
+          </button>
+        )}
+        <nav className="pointer-events-auto rounded-3xl bg-card-light px-6 py-4 shadow-subtle-lg">
+          <ul className="flex items-center justify-between text-xs font-medium text-text-muted">
+            <li>
+              <button
+                onClick={() => onTabChange('home')}
+                className={`flex flex-col items-center ${
+                  isHomeTab ? 'text-primary' : 'text-text-muted'
+                }`}
+              >
+                <span className="material-icons text-base">home</span>
+                Home
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => onTabChange('groups')}
+                className={`flex flex-col items-center ${
+                  isGroupsNavActive ? 'text-primary' : 'text-text-muted'
+                }`}
+              >
+                <span className="material-icons text-base">groups</span>
+                Groups
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => onTabChange('insights')}
+                className={`flex flex-col items-center ${
+                  isInsightsTab ? 'text-primary' : 'text-text-muted'
+                }`}
+              >
+                <span className="material-icons text-base">insights</span>
+                Insights
+              </button>
+            </li>
+            <li>
+              <button className="flex flex-col items-center text-text-muted" disabled>
+                <span className="material-icons text-base">person</span>
+                Profile
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  )
+}
+
+const DEFAULT_MEMBERS = [
+  {
+    id: 'you',
+    name: 'You',
+    avatar:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBd6yuedjzS6Qf0MbCjffpK_sKfqfv7SFnKGty4pY45_7v4eGl0uW9B_Jmez1sVYiYEV15Ef4P2bU8Bq5mC1ZIhl2beNaL64LtgzDXz7vpnA6chik93PlI0Tlow9YDabg4Ywnhkj8UTukQF_5hnoR2zdPWFZnSKEIMQT6W5lNMfiK9SwvaEpPpv-9jpcUKsmrAQGZQFHqIjbgUazPr2PJ8tyqkYVSlSj7aN632URXN2eRY6dUX2dWLzvpLHJYO3UsbxWljrrmKVF3j0',
+  },
+  {
+    id: 'rohan',
+    name: 'Rohan',
+    avatar:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAgrrLmWPMaZ04U70E_FdBrg3z88Gy9TekIBxxl2o-tqoXULpGrQlkLvvIvotLTCX4W9HhWN9VgB8vnKT-aj8xPzgJ4X-hoN88OvsogcHw3omKnG6kYTq-iygSL0PbY3_A6jPQAi09-nnAFft0SnH8ln4PAqdus6qnPXC4i_Y2Dd03G79hJU-3SWBFyNFadKBhGpzt40GKp7MjwotZdp_e9RuInYzvuXUjr-pvs_E2C1dL32wevc33BI-8fx-pNMB8PFYb-OOY4zC-w',
+  },
+  {
+    id: 'priya',
+    name: 'Priya',
+    avatar:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA7Cd2ABAxT2CvFAmz3IBpk-jfZ7riRrOhCSnBknxiCU2bYO9SgILygRw888i6ZfKnTpe272IMg0q4MuQTUZEzj3W1NmtiEnRcO4Y1-hWc5fYQlN3BT896bGVkxJLhqOgjLhVd-yQa8OJY-DwAkO1HFuA3JXpuh19Qchgd6RXJHMIb7I676Al-0cQEeYkSuP7cZiDZy4GdxFL38W0cE3-N3WvBcqoGq9qSw1qfhC2YGkVZpta004F3v7-_QTXhb3zI5cPs2ca6iv4qd',
+  },
+  {
+    id: 'sunita',
+    name: 'Sunita',
+    avatar:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAphdcU10CVrZiMNSVByk3Tt05XMcYZp_XUQdTgK2IXdsB3l4AFd0drwjFLLgo4I03vvrE9tBpPU0AqwVkBVl-pWi-mqFf87W65wFdbOtZo8TvfVtwWg88uuP4mz7rSik4LD4xKjcYeZMPpLP4an25rl-MDmDU8yr2xZYSi006scUHSgP_ccJbnQ_wQv1fU_eH_UJ6GjVs4Zgrv2nTOXs3SuSnSUERfBC4J-3SdFrfc6ZkmmCTtxT8crQTMDdV-W6Y7twkYAoN8UIij',
+  },
+]
+
+function GroupDetailScreen({ group, onBack }) {
+  const detail = groupDetails[group?.id] ?? buildDefaultGroupDetail(group)
+  const [tab, setTab] = useState('expenses')
+  const [showAddExpense, setShowAddExpense] = useState(false)
+
+  const navigateToSettlePage = (member) => {
+    const url = new URL('/upi-and-cash.html', window.location.origin)
+    if (member?.name) {
+      url.searchParams.set('member', member.name)
+    }
+    if (member?.amount) {
+      url.searchParams.set('amount', member.amount.replace(/[^0-9.₹]/g, ''))
+    }
+    window.location.href = url.toString()
+  }
+
+  return (
+    <div className="relative flex h-full flex-col">
+      <header className="flex items-center justify-between pt-2">
+        <button
+          onClick={onBack}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-text-light shadow-subtle"
+        >
+          <span className="material-icons text-lg">arrow_back</span>
+        </button>
+        <div className="text-center">
+          <h1 className="text-lg font-semibold text-text-light">{detail.title}</h1>
+          {detail.createdOn && (
+            <p className="text-xs text-text-muted">{detail.createdOn}</p>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-text-light shadow-subtle">
+            <span className="material-icons text-lg">edit</span>
+          </button>
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-text-light shadow-subtle">
+            <span className="material-icons text-lg">more_horiz</span>
+          </button>
+        </div>
+      </header>
+
+      <main className="mt-6 flex-1 overflow-y-auto pb-16">
+        <section className="grid grid-cols-3 gap-3">
+          {detail.metrics.map((metric) => (
+            <div
+              key={`${metric.label}-${metric.value}`}
+              className={`rounded-xl p-3 text-center ${metric.bgClass ?? 'bg-emerald-50'}`}
+            >
+              <p className={`text-xs ${metric.captionClass ?? 'text-emerald-700'}`}>{metric.label}</p>
+              <p className={`mt-1 text-lg font-semibold ${metric.valueClass ?? 'text-text-light'}`}>{metric.value}</p>
+            </div>
+          ))}
+        </section>
+
+        <div className="mt-5 rounded-full bg-white p-1 shadow-subtle">
+          {['expenses', 'members', 'insights'].map((key) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`w-1/3 rounded-full px-4 py-2 text-center text-sm font-medium capitalize transition ${
+                tab === key ? 'bg-card-light text-text-light shadow-subtle' : 'text-text-muted'
+              }`}
+            >
+              {key}
+            </button>
+          ))}
+        </div>
+
+        {tab === 'expenses' && (
+          <div className="mt-4 space-y-3">
+            {detail.expenses.map((expense) => (
+              <article key={expense.id} className="rounded-xl bg-white p-4 shadow-subtle">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-xl">
+                      {expense.emoji}
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-text-light">{expense.title}</h3>
+                      <p className="text-xs text-text-muted">{expense.note}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-text-light">{expense.amount}</p>
+                    {expense.status && (
+                      <p className={`text-xs ${expense.statusClass ?? 'text-text-muted'}`}>{expense.status}</p>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+
+            {detail.expenses.length === 0 && (
+              <p className="rounded-xl bg-white p-4 text-sm text-text-muted shadow-subtle">
+                No expenses recorded yet.
+              </p>
+            )}
+
+            <button
+              onClick={() => setShowAddExpense(true)}
+              className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-background-dark shadow-subtle"
+              type="button"
+            >
+              <span className="material-icons text-base">add</span>
+              Add Expense
+            </button>
+          </div>
+        )}
+
+        {tab === 'members' && (
+          <div className="mt-4 space-y-3">
+            {detail.members.map((member) => (
+              <article key={member.id} className="rounded-xl bg-white p-4 shadow-subtle">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img src={member.avatar} alt={member.name} className="h-10 w-10 rounded-full object-cover" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-text-light">{member.name}</h3>
+                      <p className="text-xs text-text-muted">{member.note}</p>
+                    </div>
+                  </div>
+                  {member.summary && (
+                    <p className={`text-sm font-medium ${member.summaryClass ?? 'text-text-muted'}`}>
+                      {member.summary}
+                    </p>
+                  )}
+                </div>
+
+                {member.settleAmount && member.settleAmount !== '₹0' && (
+                  <button
+                    onClick={() => navigateToSettlePage({ name: member.name, amount: member.settleAmount })}
+                    className="mt-3 w-full rounded-full bg-mint-green-accent py-2 text-sm font-semibold text-mint-green-dark"
+                    type="button"
+                  >
+                    Settle UPI
+                  </button>
+                )}
+              </article>
+            ))}
+
+            {detail.members.length === 0 && (
+              <p className="rounded-xl bg-white p-4 text-sm text-text-muted shadow-subtle">
+                Add members to start tracking contributions.
+              </p>
+            )}
+          </div>
+        )}
+
+        {tab === 'insights' && (
+          <div className="mt-4 space-y-4">
+            {detail.insights.breakdown.length > 0 && (
+              <div className="rounded-xl bg-white p-4 shadow-subtle">
+                <h3 className="mb-3 text-sm font-semibold text-text-light">Spending Breakdown</h3>
+                <div className="space-y-3">
+                  {detail.insights.breakdown.map((item) => (
+                    <div key={item.label}>
+                      <div className="flex items-center justify-between text-xs text-text-light">
+                        <p>{item.label}</p>
+                        <p className="font-medium">{item.amount}</p>
+                      </div>
+                      <div className="mt-1 h-2 w-full rounded-full bg-background-light">
+                        <div
+                          className="h-2 rounded-full bg-primary"
+                          style={{ width: `${item.percent}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {detail.insights.aiTip && (
+              <div className="rounded-xl bg-emerald-50 p-4 shadow-subtle">
+                <div className="flex items-start gap-3">
+                  <span className="material-icons text-lg text-emerald-700">auto_awesome</span>
+                  <p className="text-sm text-text-muted">{detail.insights.aiTip}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+
+      {showAddExpense && (
+        <AddExpenseOverlay
+          members={detail.members}
+          onClose={() => setShowAddExpense(false)}
+        />
+      )}
+    </div>
+  )
+}
+
+function AddExpenseOverlay({ members = [], onClose }) {
+  const fallbackMembers = [
+    {
+      id: 'you',
+      name: 'You',
+      avatar:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBd6yuedjzS6Qf0MbCjffpK_sKfqfv7SFnKGty4pY45_7v4eGl0uW9B_Jmez1sVYiYEV15Ef4P2bU8Bq5mC1ZIhl2beNaL64LtgzDXz7vpnA6chik93PlI0Tlow9YDabg4Ywnhkj8UTukQF_5hnoR2zdPWFZnSKEIMQT6W5lNMfiK9SwvaEpPpv-9jpcUKsmrAQGZQFHqIjbgUazPr2PJ8tyqkYVSlSj7aN632URXN2eRY6dUX2dWLzvpLHJYO3UsbxWljrrmKVF3j0',
+    },
+    {
+      id: 'rohan',
+      name: 'Rohan',
+      avatar:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAgrrLmWPMaZ04U70E_FdBrg3z88Gy9TekIBxxl2o-tqoXULpGrQlkLvvIvotLTCX4W9HhWN9VgB8vnKT-aj8xPzgJ4X-hoN88OvsogcHw3omKnG6kYTq-iygSL0PbY3_A6jPQAi09-nnAFft0SnH8ln4PAqdus6qnPXC4i_Y2Dd03G79hJU-3SWBFyNFadKBhGpzt40GKp7MjwotZdp_e9RuInYzvuXUjr-pvs_E2C1dL32wevc33BI-8fx-pNMB8PFYb-OOY4zC-w',
+    },
+    {
+      id: 'priya',
+      name: 'Priya',
+      avatar:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA7Cd2ABAxT2CvFAmz3IBpk-jfZ7riRrOhCSnBknxiCU2bYO9SgILygRw888i6ZfKnTpe272IMg0q4MuQTUZEzj3W1NmtiEnRcO4Y1-hWc5fYQlN3BT896bGVkxJLhqOgjLhVd-yQa8OJY-DwAkO1HFuA3JXpuh19Qchgd6RXJHMIb7I676Al-0cQEeYkSuP7cZiDZy4GdxFL38W0cE3-N3WvBcqoGq9qSw1qfhC2YGkVZpta004F3v7-_QTXhb3zI5cPs2ca6iv4qd',
+    },
+    {
+      id: 'sunita',
+      name: 'Sunita',
+      avatar:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAphdcU10CVrZiMNSVByk3Tt05XMcYZp_XUQdTgK2IXdsB3l4AFd0drwjFLLgo4I03vvrE9tBpPU0AqwVkBVl-pWi-mqFf87W65wFdbOtZo8TvfVtwWg88uuP4mz7rSik4LD4xKjcYeZMPpLP4an25rl-MDmDU8yr2xZYSi006scUHSgP_ccJbnQ_wQv1fU_eH_UJ6GjVs4Zgrv2nTOXs3SuSnSUERfBC4J-3SdFrfc6ZkmmCTtxT8crQTMDdV-W6Y7twkYAoN8UIij',
+    },
+  ]
+
+  const participants = members.length > 0 ? members : fallbackMembers
+  const defaultShare = participants.length ? (100 / participants.length).toFixed(0) : '0'
+  const defaultSplitAmount = participants.length ? (1200 / participants.length).toFixed(2) : '0.00'
+
+  const [expenseName, setExpenseName] = useState('')
+  const [category, setCategory] = useState('Food')
+  const [amount, setAmount] = useState('1200.00')
+  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10))
+  const [paidBy, setPaidBy] = useState(participants[0]?.name ?? 'You')
+  const [notes, setNotes] = useState('')
+  const [splitMethod, setSplitMethod] = useState('equally')
+  const [memberState, setMemberState] = useState(() =>
+    participants.map((participant) => ({
+      id: participant.id ?? participant.name,
+      name: participant.name,
+      avatar: participant.avatar,
+      share: defaultShare,
+      amount: defaultSplitAmount,
+      locked: false,
+    })),
+  )
+
+  const parsedAmount = Number.parseFloat(amount.replace(/,/g, '')) || 0
+  const equalShare = participants.length ? parsedAmount / participants.length : 0
+  const percentTotal = memberState.reduce(
+    (sum, member) => sum + (Number.parseFloat(member.share) || 0),
+    0,
+  )
+  const customTotal = memberState.reduce(
+    (sum, member) => sum + (Number.parseFloat(member.amount) || 0),
+    0,
+  )
+  const formattedAmount = parsedAmount.toFixed(2)
+  const formattedAllocated = (splitMethod === 'custom' ? customTotal : parsedAmount).toFixed(2)
+  const progressValue = (() => {
+    if (splitMethod === 'percentage') {
+      return Math.min(percentTotal, 100)
+    }
+    if (splitMethod === 'shares') {
+      return Math.min(percentTotal, 100)
+    }
+    if (splitMethod === 'custom') {
+      return Math.min(parsedAmount ? (customTotal / parsedAmount) * 100 : 0, 100)
+    }
+    return 0
+  })()
+
+  const handleShareChange = (id, value) => {
+    setMemberState((prev) =>
+      prev.map((member) => (member.id === id ? { ...member, share: value } : member)),
+    )
+  }
+
+  const handleAmountChange = (id, value) => {
+    setMemberState((prev) =>
+      prev.map((member) => (member.id === id ? { ...member, amount: value } : member)),
+    )
+  }
+
+  const toggleLock = (id) => {
+    setMemberState((prev) =>
+      prev.map((member) => (member.id === id ? { ...member, locked: !member.locked } : member)),
+    )
+  }
+
+  const handleSubmit = () => {
+    onClose?.()
+  }
+
+  const equalShareDisplay = Number.isFinite(equalShare) ? equalShare.toFixed(2) : '0.00'
+
+  const splitOptions = [
+    { key: 'equally', label: 'Equally' },
+    { key: 'percentage', label: 'By %' },
+    { key: 'shares', label: 'By Shares' },
+    { key: 'custom', label: 'Custom' },
+  ]
+
+  const categories = [
+    { value: 'Food', label: '🍔 Food' },
+    { value: 'Travel', label: '✈️ Travel' },
+    { value: 'Stay', label: '🏨 Stay' },
+    { value: 'Activities', label: '🎟️ Activities' },
+    { value: 'Shopping', label: '🛍️ Shopping' },
+  ]
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 py-6 backdrop-blur-sm">
+      <div className="relative flex h-full w-full max-w-md flex-col overflow-hidden rounded-3xl bg-gradient-to-b from-white via-background-light to-background-light shadow-2xl">
+        <header className="sticky top-0 z-10 flex h-24 items-center justify-between bg-white/80 px-4 pt-8 backdrop-blur-sm">
+          <button
+            onClick={onClose}
+            className="flex h-10 w-10 items-center justify-center rounded-full text-content-light"
+            type="button"
+          >
+            <span className="material-icons text-2xl">arrow_back</span>
+          </button>
+          <h1 className="text-xl font-bold text-content-light">Add Expense</h1>
+          <div className="h-10 w-10" />
+        </header>
+
+        <main className="flex-1 space-y-5 overflow-y-auto px-4 pb-28">
+          <section className="rounded-xl bg-white p-4 shadow-subtle">
+            <h2 className="mb-4 text-base font-bold text-content-light">Expense Overview</h2>
+            <div className="space-y-4">
+              <input
+                value={expenseName}
+                onChange={(event) => setExpenseName(event.target.value)}
+                className="w-full rounded-lg border-border-light bg-background-light p-3 text-sm text-content-light focus:border-primary focus:ring-primary"
+                placeholder="Expense Name (e.g., Dinner at Goa)"
+                type="text"
+              />
+              <div className="flex items-center gap-4">
+                <div className="relative w-1/2">
+                  <select
+                    value={category}
+                    onChange={(event) => setCategory(event.target.value)}
+                    className="w-full appearance-none rounded-lg border-border-light bg-background-light p-3 pl-10 text-sm text-content-light focus:border-primary focus:ring-primary"
+                  >
+                    {categories.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="material-icons pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-lg text-subtle-light">
+                    category
+                  </span>
+                </div>
+                <div className="relative w-1/2">
+                  <input
+                    value={amount}
+                    onChange={(event) => setAmount(event.target.value)}
+                    className="w-full rounded-lg border-border-light bg-background-light p-3 pl-8 text-right text-sm font-medium text-content-light focus:border-primary focus:ring-primary"
+                    type="text"
+                  />
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-subtle-light">
+                    ₹
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="relative w-1/2">
+                  <input
+                    value={date}
+                    onChange={(event) => setDate(event.target.value)}
+                    className="w-full appearance-none rounded-lg border-border-light bg-background-light p-3 pl-10 text-sm text-content-light focus:border-primary focus:ring-primary"
+                    type="date"
+                  />
+                  <span className="material-icons pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-lg text-subtle-light">
+                    calendar_today
+                  </span>
+                </div>
+                <div className="relative w-1/2">
+                  <select
+                    value={paidBy}
+                    onChange={(event) => setPaidBy(event.target.value)}
+                    className="w-full appearance-none rounded-lg border-border-light bg-background-light p-3 pl-10 text-sm text-content-light focus:border-primary focus:ring-primary"
+                  >
+                    {participants.map((participant) => (
+                      <option key={participant.id ?? participant.name} value={participant.name}>
+                        {participant.name}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="material-icons pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-lg text-subtle-light">
+                    account_balance_wallet
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="rounded-xl bg-white p-4 shadow-subtle">
+            <h2 className="mb-4 text-base font-bold text-content-light">Split Method</h2>
+            <div className="flex rounded-full bg-background-light p-1">
+              {splitOptions.map((option) => (
+                <button
+                  key={option.key}
+                  onClick={() => setSplitMethod(option.key)}
+                  className={`flex-1 rounded-full px-2 py-2 text-center text-xs font-medium transition ${
+                    splitMethod === option.key
+                      ? 'bg-white text-content-light shadow-soft'
+                      : 'text-subtle-light'
+                  }`}
+                  type="button"
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-xl bg-white p-4 shadow-subtle">
+            <h2 className="mb-4 text-base font-bold text-content-light">Members Breakdown</h2>
+            <div className="max-h-60 space-y-3 overflow-y-auto pr-2">
+              {memberState.map((member) => (
+                <div key={member.id} className="flex items-center gap-3">
+                  <img src={member.avatar} alt={member.name} className="h-10 w-10 rounded-full object-cover" />
+                  <p className="flex-1 font-medium text-content-light">{member.name}</p>
+
+                  {splitMethod === 'equally' && (
+                    <div className="flex items-center gap-2">
+                      <p className="w-20 rounded-lg bg-background-light p-2 text-center text-sm text-subtle-light">
+                        ₹{equalShareDisplay}
+                      </p>
+                    </div>
+                  )}
+
+                  {splitMethod === 'percentage' && (
+                    <div className="relative w-24">
+                      <input
+                        value={member.share}
+                        onChange={(event) => handleShareChange(member.id, event.target.value)}
+                        className="w-full rounded-lg border-border-light bg-background-light p-2 text-right pr-6 text-sm focus:border-primary focus:ring-primary"
+                        type="number"
+                      />
+                      <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-sm text-subtle-light">%</span>
+                    </div>
+                  )}
+
+                  {splitMethod === 'shares' && (
+                    <div className="relative w-24">
+                      <input
+                        value={member.share}
+                        onChange={(event) => handleShareChange(member.id, event.target.value)}
+                        className="w-full rounded-lg border-border-light bg-background-light p-2 text-right pr-12 text-sm focus:border-primary focus:ring-primary"
+                        type="number"
+                      />
+                      <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-subtle-light">
+                        share(s)
+                      </span>
+                    </div>
+                  )}
+
+                  {splitMethod === 'custom' && (
+                    <div className="relative w-24">
+                      <input
+                        value={member.amount}
+                        onChange={(event) => handleAmountChange(member.id, event.target.value)}
+                        className="w-full rounded-lg border-border-light bg-background-light p-2 text-right pr-6 text-sm focus:border-primary focus:ring-primary disabled:bg-gray-200"
+                        type="number"
+                        disabled={member.locked}
+                      />
+                      <span className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-sm text-subtle-light">₹</span>
+                      <button
+                        onClick={() => toggleLock(member.id)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2"
+                        type="button"
+                      >
+                        <span className="material-icons text-base">
+                          {member.locked ? 'lock' : 'lock_open'}
+                        </span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {splitMethod !== 'equally' && (
+              <div className="mt-4">
+                <div className="flex h-8 items-center rounded-full bg-background-light">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all"
+                    style={{ width: `${Math.max(0, progressValue)}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="mt-2 flex justify-between text-xs">
+              <p className="text-subtle-light">Total:</p>
+              {splitMethod === 'equally' || splitMethod === 'custom' ? (
+                <p className="font-medium text-content-light">
+                  ₹{Number.isFinite(Number.parseFloat(formattedAllocated)) ? formattedAllocated : '0.00'} / ₹
+                  {Number.isFinite(parsedAmount) ? formattedAmount : '0.00'}
+                </p>
+              ) : (
+                <p className="font-medium text-content-light">{Math.round(percentTotal)}% / 100%</p>
+              )}
+            </div>
+          </section>
+
+          <section className="rounded-xl bg-white p-4 shadow-soft">
+            <h2 className="mb-2 text-base font-bold text-content-light">
+              Notes / Description <span className="text-sm font-normal text-subtle-light">(Optional)</span>
+            </h2>
+            <textarea
+              value={notes}
+              onChange={(event) => setNotes(event.target.value)}
+              className="w-full rounded-lg border-border-light bg-background-light p-3 text-sm text-content-light focus:border-primary focus:ring-primary"
+              placeholder="Add any notes or attach a receipt..."
+              rows={3}
+            />
+            <button
+              className="mt-2 flex items-center gap-2 rounded-full border border-dashed border-primary px-4 py-2 text-sm font-medium text-primary"
+              type="button"
+            >
+              <span className="material-icons text-base">attach_file</span>
+              Attach File
+            </button>
+          </section>
+
+          <section className="rounded-xl bg-mint-green-accent p-4 shadow-subtle">
+            <div className="flex items-start gap-3">
+              <span className="material-icons mt-1 text-2xl text-mint-green-dark">auto_awesome</span>
+              <div>
+                <h4 className="font-bold text-content-light">AI Suggestions</h4>
+                <p className="mt-1 text-sm text-subtle-light">
+                  Based on the expense "Dinner", this seems to be a 'Food' category expense. Consider splitting equally among all group members.
+                </p>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <div className="sticky bottom-0 left-0 right-0 z-10 bg-white/80 p-4 pt-3 backdrop-blur-sm">
+          <button
+            onClick={handleSubmit}
+            className="flex h-14 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-black shadow-lg"
+            type="button"
+          >
+            <span className="text-base font-bold">Add Expense</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AddFriendModal({ method, value, onChange, onSelectMethod, onClose, onSend }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-6 backdrop-blur-sm">
+      <div className="relative w-full max-w-sm">
+        <div className="absolute -inset-2 rounded-3xl bg-gradient-to-br from-green-300 via-green-400 to-primary opacity-20 blur-xl" />
+        <div className="relative rounded-3xl bg-card-light p-6 shadow-2xl">
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 rounded-full bg-gray-100 p-2 text-text-muted"
+          >
+            <span className="material-icons text-base">close</span>
+          </button>
+
+          <div className="text-center">
+            <h3 className="text-xl font-semibold text-text-light">Add Friend</h3>
+            <p className="mt-1 text-xs text-text-muted">
+              Invite a friend to split bills and track expenses together in seconds.
+            </p>
+          </div>
+
+          <div className="mt-6 flex rounded-full bg-gray-100 p-1">
+            <button
+              onClick={() => onSelectMethod('phone')}
+              className={`flex-1 rounded-full py-2 text-xs font-semibold transition ${
+                method === 'phone'
+                  ? 'bg-white text-primary shadow-subtle'
+                  : 'text-text-muted'
+              }`}
+            >
+              By Phone Number
+            </button>
+            <button
+              onClick={() => onSelectMethod('email')}
+              className={`flex-1 rounded-full py-2 text-xs font-semibold transition ${
+                method === 'email'
+                  ? 'bg-white text-primary shadow-subtle'
+                  : 'text-text-muted'
+              }`}
+            >
+              By Email
+            </button>
+          </div>
+
+          <div className="mt-5">
+            {method === 'phone' ? (
+              <div className="relative">
+                <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs font-semibold text-text-muted">
+                  +91
+                </span>
+                <input
+                  type="tel"
+                  value={value}
+                  onChange={(event) => onChange(event.target.value)}
+                  placeholder="9876543210"
+                  className="w-full rounded-full border border-gray-200 bg-gray-50 py-3 pl-14 pr-4 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+            ) : (
+              <input
+                type="email"
+                value={value}
+                onChange={(event) => onChange(event.target.value)}
+                placeholder="friend@email.com"
+                className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              />
+            )}
+          </div>
+
+          <div className="mt-8 space-y-3">
+            <button
+              onClick={onSend}
+              className="flex h-12 w-full items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-primary text-sm font-semibold text-white shadow-lg shadow-primary/30 transition-transform hover:scale-[1.01]"
+            >
+              Send Invite
+            </button>
+            <button
+              onClick={onClose}
+              className="h-12 w-full rounded-full text-sm font-medium text-text-muted transition hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SuccessScreen({ onGoToDashboard, onInviteFriend }) {
+  return (
+    <div className="relative flex min-h-screen flex-col items-center justify-between overflow-hidden bg-gradient-to-b from-white to-background-light px-6 py-12 text-center text-[#10221f]">
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <span
+            key={`confetti-${index}`}
+            className="confetti"
+            style={{
+              left: `${10 + index * 10}%`,
+              top: index % 2 === 0 ? '20%' : '60%',
+              animationDelay: `${index * 0.2}s`,
+              backgroundColor: index % 3 === 0 ? '#A7F3D0' : undefined,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="z-10 flex flex-1 flex-col items-center justify-center">
+        <div className="mb-8 flex h-40 w-40 items-center justify-center rounded-full border border-white/30 bg-white/30 backdrop-blur-xl">
+          <div className="flex h-32 w-32 items-center justify-center rounded-full bg-primary/20">
+            <span className="material-icons text-5xl text-primary">check</span>
+          </div>
+        </div>
+        <h1 className="text-4xl font-black">Congratulations!</h1>
+        <p className="mt-3 max-w-xs text-sm text-[#10221f]/70">
+          Your account is ready. Split expenses, settle over UPI, and ask Hisab for personalised money insights.
+        </p>
+      </div>
+
+      <div className="z-10 flex w-full max-w-sm flex-col gap-3 pb-6">
+        <button
+          onClick={onGoToDashboard}
+          className="h-14 rounded-full bg-gradient-to-r from-primary to-emerald-200 font-semibold text-[#0b1f17] shadow-lg transition-transform hover:scale-105"
+        >
+          Go to Dashboard
+        </button>
+        <button
+          onClick={onInviteFriend}
+          className="h-14 rounded-full border-2 border-primary font-semibold text-primary transition hover:bg-primary/10"
+        >
+          Invite a Friend
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function Toast({ message }) {
+  return (
+    <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-full bg-gray-900 px-5 py-3 text-sm font-medium text-white shadow-xl">
+      {message}
+    </div>
+  )
+}
+
+function GoogleIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clipPath="url(#clip0)">
+        <path d="M22.56 12.25C22.56 11.45 22.49 10.68 22.36 9.92H11.5V14.28H17.78C17.53 15.75 16.83 16.98 15.79 17.72V20.31H19.5C21.46 18.49 22.56 15.63 22.56 12.25Z" fill="#4285F4" />
+        <path d="M11.5 23C14.47 23 16.96 22.01 18.78 20.31L15.79 17.72C14.83 18.39 13.34 18.88 11.5 18.88C8.36 18.88 5.71 16.89 4.83 14.07H1.04V16.74C2.82 20.44 6.81 23 11.5 23Z" fill="#34A853" />
+        <path d="M4.83 14.07C4.61 13.42 4.49 12.72 4.49 12C4.49 11.28 4.61 10.58 4.83 9.93V7.26H1.04C0.38 8.64 0 10.26 0 12C0 13.74 0.38 15.36 1.04 16.74L4.83 14.07Z" fill="#FBBC05" />
+        <path d="M11.5 5.12C13.02 5.12 14.33 5.65 15.39 6.64L18.87 3.16C16.96 1.34 14.47 0 11.5 0C6.81 0 2.82 2.56 1.04 6.26L4.83 8.93C5.71 6.11 8.36 5.12 11.5 5.12Z" fill="#EA4335" />
+      </g>
+      <defs>
+        <clipPath id="clip0">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}
+
+export default App

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#22c55e",
+            "background-light": "#ffffff",
+            "background-dark": "#10221f",
+            "text-light": "#1f2937",
+            "text-muted-light": "#6b7280",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem",
+            "xl": "2rem",
+            "full": "9999px"
+          },
+          boxShadow: {
+            'subtle': '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
+            'subtle-lg': '0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+          }
+        },
+      },
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-between overflow-hidden">
+<div class="absolute -top-1/4 -left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-0"></div>
+<div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-0"></div>
+<div class="z-10 flex w-full flex-col items-center pt-24">
+<div class="relative w-40 h-40 mb-10 flex items-center justify-center bg-white shadow-subtle-lg rounded-xl">
+<div class="absolute inset-0 bg-primary/10 rounded-xl opacity-50"></div>
+<span class="text-7xl font-bold text-primary drop-shadow-sm">₹</span>
+</div>
+<h1 class="text-4xl font-bold tracking-tight text-text-light text-center px-6">
+        Hi, I’m <span class="text-primary">Hisab!</span>
+</h1>
+<p class="mt-2 text-lg text-text-muted-light text-center">Your AI-powered UPI companion.</p>
+</div>
+<div class="z-10 flex w-full flex-col items-center gap-4 px-6 pb-8">
+<button class="flex w-full max-w-sm cursor-pointer items-center justify-center rounded-full h-14 px-5 bg-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transition-transform hover:scale-105">
+<span class="truncate">Get Started</span>
+</button>
+<button class="flex w-full max-w-sm cursor-pointer items-center justify-center gap-2 rounded-full h-14 px-5 bg-gray-100 backdrop-blur-sm text-text-light text-base font-semibold transition-colors hover:bg-gray-200/80 shadow-subtle">
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_105_22)">
+<path d="M22.56 12.25C22.56 11.45 22.49 10.68 22.36 9.92H11.5V14.28H17.78C17.53 15.75 16.83 16.98 15.79 17.72V20.31H19.5C21.46 18.49 22.56 15.63 22.56 12.25Z" fill="#4285F4"></path>
+<path d="M11.5 23C14.47 23 16.96 22.01 18.78 20.31L15.79 17.72C14.83 18.39 13.34 18.88 11.5 18.88C8.36 18.88 5.71 16.89 4.83 14.07H1.04V16.74C2.82 20.44 6.81 23 11.5 23Z" fill="#34A853"></path>
+<path d="M4.83 14.07C4.61 13.42 4.49 12.72 4.49 12C4.49 11.28 4.61 10.58 4.83 9.93V7.26H1.04C0.38 8.64 0 10.26 0 12C0 13.74 0.38 15.36 1.04 16.74L4.83 14.07Z" fill="#FBBC05"></path>
+<path d="M11.5 5.12C13.02 5.12 14.33 5.65 15.39 6.64L18.87 3.16C16.96 1.34 14.47 0 11.5 0C6.81 0 2.82 2.56 1.04 6.26L4.83 8.93C5.71 6.11 8.36 5.12 11.5 5.12Z" fill="#EA4335"></path>
+</g>
+<defs>
+<clipPath id="clip0_105_22">
+<rect fill="white" height="24" width="24"></rect>
+</clipPath>
+</defs>
+</svg>
+<span class="truncate">Continue with Google</span>
+</button>
+<button class="flex w-full max-w-sm cursor-pointer items-center justify-center rounded-full h-14 px-5 border border-gray-200 text-text-light text-base font-semibold transition-colors hover:bg-gray-100/50 shadow-subtle">
+<span class="truncate">Continue with Phone Number</span>
+</button>
+<p class="text-xs text-text-muted-light/70 text-center pt-4 max-w-sm">
+        By continuing, you agree to our Terms of Service and Privacy Policy
+      </p>
+</div>
+</div>
+
+</body></html>

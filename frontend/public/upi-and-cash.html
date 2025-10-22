@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Settle Up</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #3fe458;
+        --background: #f6f8f6;
+        --surface: #ffffff;
+        --content: #111712;
+        --subtle: #648769;
+        --accent: #e6fbf3;
+        --accent-dark: #174c34;
+        --border: #f0f4f1;
+        --shadow: 0 18px 42px rgba(17, 23, 18, 0.08);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--background);
+        font-family: 'Inter', sans-serif;
+        color: var(--content);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .card {
+        width: min(420px, 100%);
+        background: var(--surface);
+        border-radius: 32px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      header {
+        padding: 32px 32px 24px;
+        text-align: center;
+      }
+      .handle {
+        width: 64px;
+        height: 6px;
+        background: var(--border);
+        border-radius: 999px;
+        margin: 0 auto 24px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 600;
+      }
+      header p {
+        margin-top: 8px;
+        font-size: 14px;
+        color: var(--subtle);
+      }
+      main {
+        padding: 0 32px 28px;
+      }
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border-radius: 20px;
+        border: 2px solid var(--border);
+        background: var(--background);
+        padding: 16px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        margin-bottom: 12px;
+      }
+      .option__icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: var(--primary);
+        box-shadow: inset 0 0 0 1px rgba(17, 23, 18, 0.04);
+      }
+      .option__title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .option__desc {
+        margin: 4px 0 0;
+        font-size: 12px;
+        color: var(--subtle);
+      }
+      .option--active {
+        border-color: var(--primary);
+        background: var(--accent);
+      }
+      .option--active .option__check {
+        opacity: 1;
+      }
+      .option__check {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #000;
+        font-size: 18px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      .summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px;
+        border-radius: 20px;
+        background: var(--accent);
+        color: var(--accent-dark);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .summary strong {
+        font-size: 22px;
+        color: var(--content);
+        font-weight: 600;
+      }
+      footer {
+        padding: 0 32px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .btn {
+        border: none;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px;
+        cursor: pointer;
+      }
+      .btn--primary {
+        background: var(--primary);
+        color: #000;
+        box-shadow: 0 18px 28px rgba(63, 228, 88, 0.26);
+      }
+      .btn--ghost {
+        background: var(--background);
+        color: var(--content);
+      }
+      @media (max-width: 480px) {
+        body {
+          padding: 24px 12px;
+        }
+        header {
+          padding: 28px 24px 20px;
+        }
+        main,
+        footer {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <header>
+        <div class="handle"></div>
+        <h1>Settle Up</h1>
+        <p>
+          Confirm how you want to settle with
+          <span data-member-inline>Rohan</span>.
+        </p>
+      </header>
+      <main>
+        <article class="option option--active" id="upiOption">
+          <div class="option__icon">&#xe5f1;</div>
+          <div>
+            <p class="option__title">Pay via UPI</p>
+            <p class="option__desc">Instant, secure, and easy.</p>
+          </div>
+          <div class="option__check">&#xe86c;</div>
+        </article>
+        <article class="option">
+          <div class="option__icon">&#xe8b5;</div>
+          <div>
+            <p class="option__title">Pay via Cash</p>
+            <p class="option__desc">Settle in person.</p>
+          </div>
+        </article>
+
+        <section class="summary">
+          <span>You owe <span data-member-inline>Rohan</span>:</span>
+          <strong data-amount>₹4,888</strong>
+        </section>
+      </main>
+      <footer>
+        <button class="btn btn--primary" id="proceedBtn" type="button">
+          Proceed to Pay
+        </button>
+        <button
+          class="btn btn--ghost"
+          type="button"
+          onclick="window.history.back()"
+        >
+          Cancel
+        </button>
+      </footer>
+    </div>
+
+    <script>
+      ;(() => {
+        const params = new URLSearchParams(window.location.search)
+        const member = params.get('member') || 'Rohan'
+        const amountParam = params.get('amount') || '₹4,888'
+        const amountDisplay = amountParam.startsWith('₹')
+          ? amountParam
+          : `₹${amountParam}`
+
+        document.querySelectorAll('[data-member-inline]').forEach((node) => {
+          node.textContent = member
+        })
+        document.querySelectorAll('[data-amount]').forEach((node) => {
+          node.textContent = amountDisplay
+        })
+
+        const navigateToChooser = () => {
+          const url = new URL('/choose-api-app.html', window.location.origin)
+          url.searchParams.set('member', member)
+          url.searchParams.set('amount', amountParam)
+          window.location.href = url.toString()
+        }
+
+        const proceedBtn = document.getElementById('proceedBtn')
+        if (proceedBtn) {
+          proceedBtn.addEventListener('click', navigateToChooser)
+        }
+
+        const upiOption = document.getElementById('upiOption')
+        if (upiOption) {
+          upiOption.addEventListener('click', navigateToChooser)
+        }
+      })()
+    </script>
+  </body>
+</html>

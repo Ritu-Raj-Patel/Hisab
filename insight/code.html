@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hisab.AI Personal Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3fe458",
+            "background-light": "#F7FCF9",
+            "background-dark": "#112114",
+            "content-light": "#111712",
+            "content-dark": "#E9F5E9",
+            "subtle-light": "#648769",
+            "subtle-dark": "#A8C2A8",
+            "surface-light": "#FFFFFF",
+            "surface-dark": "#1A2E1A",
+            "border-light": "#F0F4F1",
+            "border-dark": "#2A4A2C",
+            "mint-accent": "#D6F5E3",
+            "mint-dark": "#174C34",
+            "glassmorphic-light": "rgba(255, 255, 255, 0.5)",
+            "glassmorphic-dark": "rgba(26, 46, 26, 0.5)",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem",
+            "xl": "2rem",
+            "2xl": "2.5rem",
+            "full": "9999px"
+          },
+          boxShadow: {
+            'soft': '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
+            'glow-mint': '0 0 20px 5px rgba(63, 228, 88, 0.3)',
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #F7FCF9;
+    }
+    .dark body {
+      background-color: #112114;
+    }
+    [x-cloak] {
+      display: none !important;
+    }
+    .glassmorphic {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  </style>
+<script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative mx-auto flex w-full max-w-md flex-col bg-gradient-to-b from-white to-mint-accent/20 dark:from-background-dark dark:to-mint-dark/10 min-h-screen" x-data="{ activeTab: 'weekly' }">
+<header class="sticky top-0 z-10 flex h-24 items-center justify-between px-4 pt-8">
+<div class="flex items-center gap-4">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-content-light dark:text-content-dark">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<div>
+<h1 class="text-xl font-bold text-content-light dark:text-content-dark">Personal Insights</h1>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">Your AI-powered Financial Advisor</p>
+</div>
+</div>
+<div class="relative">
+<button class="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-glow-mint">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto px-4 pb-28 pt-4">
+<div class="mb-6">
+<div class="flex rounded-full bg-background-light p-1 dark:bg-surface-dark/50 shadow-soft">
+<button :class="{'bg-white dark:bg-surface-dark shadow text-content-light dark:text-content-dark': activeTab === 'weekly', 'text-subtle-light dark:text-subtle-dark': activeTab !== 'weekly'}" @click="activeTab = 'weekly'" class="flex-1 rounded-full px-4 py-2 text-center text-sm font-medium transition-colors">Weekly</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow text-content-light dark:text-content-dark': activeTab === 'monthly', 'text-subtle-light dark:text-subtle-dark': activeTab !== 'monthly'}" @click="activeTab = 'monthly'" class="flex-1 rounded-full px-4 py-2 text-center text-sm font-medium transition-colors">Monthly</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow text-content-light dark:text-content-dark': activeTab === 'yearly', 'text-subtle-light dark:text-subtle-dark': activeTab !== 'yearly'}" @click="activeTab = 'yearly'" class="flex-1 rounded-full px-4 py-2 text-center text-sm font-medium transition-colors">Yearly</button>
+</div>
+</div>
+<div class="space-y-6">
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center justify-between mb-4">
+<div>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">Total Spending</p>
+<p class="text-2xl font-bold text-content-light dark:text-content-dark">₹1,850.75</p>
+</div>
+<div class="flex items-center gap-1 rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-600 dark:bg-red-900/30 dark:text-red-400">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+<span>12%</span>
+</div>
+</div>
+<div class="h-40">
+<img alt="Weekly spending line chart" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-YwTAd5c-usm-WYJ4QjmlqzJXs1x5WpSR6-EvV3TNaR5GVIx5jsnB8PyFuhcvgklz0Dbj1So6jHLJvVv3_zKsV_ZK0gfa7PgKj49TdNtL-3UKhLw5bSx9VOoBo6thfz8YSr2SXAxDJd8J6-6ZAHm-_GYaxtZhY9ceVNwf9MAQeTcKxrkYzH4HsaY9qVGs2VVws7NYFpoPgVZggSMiJQeT1lxkectwnorxwBKV_UT6cTLtIc9raw9o5kzIxk3mfcnY41Lp7sFpu76V"/>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-content-light dark:text-content-dark mb-3">Top Categories</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-mint-accent dark:bg-mint-dark/50">
+<span class="material-symbols-outlined text-xl text-mint-dark dark:text-primary">restaurant</span>
+</div>
+<div>
+<p class="font-semibold text-content-light dark:text-content-dark">Food</p>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">₹750</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-mint-accent dark:bg-mint-dark/50">
+<span class="material-symbols-outlined text-xl text-mint-dark dark:text-primary">shopping_bag</span>
+</div>
+<div>
+<p class="font-semibold text-content-light dark:text-content-dark">Shopping</p>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">₹420</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-mint-accent dark:bg-mint-dark/50">
+<span class="material-symbols-outlined text-xl text-mint-dark dark:text-primary">train</span>
+</div>
+<div>
+<p class="font-semibold text-content-light dark:text-content-dark">Transport</p>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">₹310</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-mint-accent dark:bg-mint-dark/50">
+<span class="material-symbols-outlined text-xl text-mint-dark dark:text-primary">receipt_long</span>
+</div>
+<div>
+<p class="font-semibold text-content-light dark:text-content-dark">Bills</p>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">₹370</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-2xl border border-primary/20 bg-glassmorphic-light p-4 shadow-soft glassmorphic dark:border-primary/30 dark:bg-glassmorphic-dark">
+<div class="flex items-start gap-3 mb-3">
+<span class="material-symbols-outlined mt-1 text-2xl text-mint-dark dark:text-primary">auto_awesome</span>
+<div>
+<h4 class="font-bold text-content-light dark:text-content-dark">AI Financial Tips</h4>
+<p class="text-sm text-subtle-light dark:text-subtle-dark">Smart suggestions to improve your habits.</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="rounded-lg bg-white/70 p-3 dark:bg-surface-dark/70">
+<p class="text-sm text-content-light dark:text-content-dark">💡 You've spent ₹250 on coffee this week. Brewing at home could save you over ₹800 monthly!</p>
+</div>
+<div class="rounded-lg bg-white/70 p-3 dark:bg-surface-dark/70">
+<p class="text-sm text-content-light dark:text-content-dark">📈 Your shopping is 15% higher than last week. Consider setting a budget for non-essentials.</p>
+</div>
+<div class="rounded-lg bg-white/70 p-3 dark:bg-surface-dark/70">
+<p class="text-sm text-content-light dark:text-content-dark">✅ Great job on keeping your transport costs low! You're saving an average of ₹150 compared to last month.</p>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-content-light dark:text-content-dark mb-3">Visual Analytics</h3>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-center justify-between mb-4">
+<h4 class="font-semibold text-content-light dark:text-content-dark">Spending vs Income</h4>
+<button class="text-xs font-medium text-primary">View Report</button>
+</div>
+<div class="h-48">
+<img alt="Spending vs Income bar chart" class="h-full w-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg1wFUM1i7YJfqAu1z1EFkFk_MiOrEBjG9Bgqx8XC6sQJd_pAHaTHBh4UkDu-m7tDNJ1sYt5KCKQUYHLUQG4DeQk8lIzORFyZMOgpe1sE-rwGQFZ6xSHqsusoVOp3bmu2Eqpqr2FQqneRfQFBzMU0T0kljFyUCPVYtdaRaZVweW7IU7AthDze2nG9L9BT5eTlCD6_tr7RX34LgeKmR00sFoFoF-rNtDIFwFbkRKXfwP35TK-RIilRvM3XKIQNo4i_b3eK-U9Mn7bfd"/>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-24 right-1/2 w-max translate-x-1/2 transform">
+<button class="flex h-14 items-center justify-center gap-3 rounded-full bg-mint-dark px-6 text-white shadow-lg dark:bg-primary dark:text-mint-dark">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-base font-bold">Ask Hisab AI for Savings Tips</span>
+</button>
+</div>
+<nav class="fixed bottom-0 left-0 right-0 z-10 mx-auto max-w-md border-t border-border-light bg-white/80 pb-3 pt-2 backdrop-blur-sm dark:border-border-dark dark:bg-background-dark/80">
+<div class="flex justify-around">
+<a class="flex flex-col items-center gap-1.5 pt-1 text-subtle-light dark:text-subtle-dark" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-xs font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 pt-1 text-subtle-light dark:text-subtle-dark" href="#">
+<span class="material-symbols-outlined text-2xl">group</span>
+<span class="text-xs font-medium">Groups</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 pt-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+<span class="text-xs font-bold">Insights</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 pt-1 text-subtle-light dark:text-subtle-dark" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+
+</body></html>

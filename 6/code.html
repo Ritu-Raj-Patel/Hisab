@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hisab.AI - Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#5Ec26A", "background-light": "#f6f8f6", "background-dark": "#141e16"}, fontFamily: {display: "Inter"}, borderRadius: {DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"}}}};</script>
+<style>
+        @keyframes bounce-in {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .animate-bounce-in {
+            animation: bounce-in 1s ease-out forwards;
+        }
+        @keyframes confetti-burst {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100px) scale(0);
+            }
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #21edcb;
+            border-radius: 50%;
+            animation: confetti-burst 2s ease-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-background-light dark:from-background-dark dark:to-[#0A1A17] font-display text-[#10221f] dark:text-background-light">
+<div class="relative min-h-screen flex flex-col justify-between overflow-hidden">
+<div class="absolute inset-0 pointer-events-none">
+<div class="confetti" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+<div class="confetti" style="left: 20%; top: 50%; animation-delay: 0.5s; background-color: #A7F3D0;"></div>
+<div class="confetti" style="left: 80%; top: 30%; animation-delay: 1s;"></div>
+<div class="confetti" style="left: 90%; top: 60%; animation-delay: 1.5s; background-color: #A7F3D0;"></div>
+<div class="confetti" style="left: 50%; top: 10%; animation-delay: 0.2s;"></div>
+<div class="confetti" style="left: 30%; top: 80%; animation-delay: 0.8s; background-color: #A7F3D0;"></div>
+<div class="confetti" style="left: 70%; top: 90%; animation-delay: 1.2s;"></div>
+<div class="confetti" style="left: 5%; top: 70%; animation-delay: 1.8s; background-color: #A7F3D0;"></div>
+</div>
+<main class="flex-grow flex flex-col items-center justify-center p-6 text-center z-10">
+<div class="w-40 h-40 mb-8 rounded-full bg-white/30 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-black/10 flex items-center justify-center animate-bounce-in shadow-lg">
+<div class="w-32 h-32 rounded-full bg-primary/20 flex items-center justify-center">
+<svg class="w-20 h-20 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<h1 class="text-4xl font-black text-background-dark dark:text-white mb-2">Congratulations!</h1>
+<p class="max-w-md text-base text-background-dark/70 dark:text-background-light/70">
+                Your account has been successfully created. You're now ready to start managing your finances with ease.
+            </p>
+</main>
+<footer class="p-6 z-10">
+<div class="flex flex-col gap-4">
+<button class="w-full h-14 rounded-full bg-gradient-to-r from-primary to-[#A7F3D0] text-background-dark font-bold text-lg shadow-lg transform hover:scale-105 transition-transform">
+                    Go to Dashboard
+                </button>
+<button class="w-full h-14 rounded-full border-2 border-primary text-primary font-bold text-lg bg-transparent hover:bg-primary/10 transition-colors">
+                    Invite a Friend
+                </button>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hisab.AI Add Expense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3fe458",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112114",
+                        "content-light": "#111712",
+                        "content-dark": "#E9F5E9",
+                        "subtle-light": "#648769",
+                        "subtle-dark": "#A8C2A8",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1A2E1A",
+                        "border-light": "#F0F4F1",
+                        "border-dark": "#2A4A2C",
+                        "mint-green-accent": "#E6FBF3",
+                        "mint-green-dark": "#174C34"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 12px 0 rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f6f8f6;
+        }
+        .dark body {
+            background-color: #112114;
+        }
+        body {
+            min-height: max(926px, 100dvh);
+        }
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+<script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative mx-auto flex w-full max-w-md flex-col bg-gradient-to-b from-white via-background-light to-background-light dark:from-surface-dark dark:via-background-dark dark:to-background-dark" x-data="{ splitMethod: 'equally', members: [{name: 'You', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBd6yuedjzS6Qf0MbCjffpK_sKfqfv7SFnKGty4pY45_7v4eGl0uW9B_Jmez1sVYiYEV15Ef4P2bU8Bq5mC1ZIhl2beNaL64LtgzDXz7vpnA6chik93PlI0Tlow9YDabg4Ywnhkj8UTukQF_5hnoR2zdPWFZnSKEIMQT6W5lNMfiK9SwvaEpPpv-9jpcUKsmrAQGZQFHqIjbgUazPr2PJ8tyqkYVSlSj7aN632URXN2eRY6dUX2dWLzvpLHJYO3UsbxWljrrmKVF3j0', share: 25, amount: '300.00', locked: false }, {name: 'Rohan', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgrrLmWPMaZ04U70E_FdBrg3z88Gy9TekIBxxl2o-tqoXULpGrQlkLvvIvotLTCX4W9HhWN9VgB8vnKT-aj8xPzgJ4X-hoN88OvsogcHw3omKnG6kYTq-iygSL0PbY3_A6jPQAi09-nnAFft0SnH8ln4PAqdus6qnPXC4i_Y2Dd03G79hJU-3SWBFyNFadKBhGpzt40GKp7MjwotZdp_e9RuInYzvuXUjr-pvs_E2C1dL32wevc33BI-8fx-pNMB8PFYb-OOY4zC-w', share: 25, amount: '300.00', locked: false }, {name: 'Priya', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA7Cd2ABAxT2CvFAmz3IBpk-jfZ7riRrOhCSnBknxiCU2bYO9SgILygRw888i6ZfKnTpe272IMg0q4MuQTUZEzj3W1NmtiEnRcO4Y1-hWc5fYQlN3BT896bGVkxJLhqOgjLhVd-yQa8OJY-DwAkO1HFuA3JXpuh19Qchgd6RXJHMIb7I676Al-0cQEeYkSuP7cZiDZy4GdxFL38W0cE3-N3WvBcqoGq9qSw1qfhC2YGkVZpta004F3v7-_QTXhb3zI5cPs2ca6iv4qd', share: 25, amount: '300.00', locked: false }, {name: 'Sunita', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAphdcU10CVrZiMNSVByk3Tt05XMcYZp_XUQdTgK2IXdsB3l4AFd0drwjFLLgo4I03vvrE9tBpPU0AqwVkBVl-pWi-mqFf87W65wFdbOtZo8TvfVtwWg88uuP4mz7rSik4LD4xKjcYeZMPpLP4an25rl-MDmDU8yr2xZYSi006scUHSgP_ccJbnQ_wQv1fU_eH_UJ6GjVs4Zgrv2nTOXs3SuSnSUERfBC4J-3SdFrfc6ZkmmCTtxT8crQTMDdV-W6Y7twkYAoN8UIij', share: 25, amount: '300.00', locked: false }, ], totalAmount: 1200, recalculate() { let total = this.members.reduce((sum, m) =&gt; sum + parseFloat(m.amount || 0), 0); let remaining = this.totalAmount - total; if (remaining &lt; 0) { console.log('Total exceeds amount'); } } }">
+<header class="sticky top-0 z-10 flex h-24 items-center justify-between bg-white/80 px-4 pt-8 backdrop-blur-sm dark:bg-background-dark/80">
+<button class="flex h-10 w-10 items-center justify-center rounded-full text-content-light dark:text-content-dark">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-content-light dark:text-content-dark">Add Expense</h1>
+<div class="h-10 w-10"></div>
+</header>
+<main class="flex-1 space-y-5 overflow-y-auto px-4 pb-28">
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<h2 class="mb-4 text-base font-bold text-content-light dark:text-content-dark">Expense Overview</h2>
+<div class="space-y-4">
+<input class="w-full rounded-lg border-border-light bg-background-light p-3 text-sm text-content-light focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50 dark:text-content-dark" placeholder="Expense Name (e.g., Dinner at Goa)" type="text"/>
+<div class="flex items-center gap-4">
+<div class="relative w-1/2">
+<select class="w-full appearance-none rounded-lg border-border-light bg-background-light p-3 pl-10 text-sm text-content-light focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50 dark:text-content-dark">
+<option>🍔 Food</option>
+<option>✈️ Travel</option>
+<option>🏨 Stay</option>
+<option>🎟️ Activities</option>
+<option>🛍️ Shopping</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-lg text-subtle-light dark:text-subtle-dark">category</span>
+</div>
+<div class="relative w-1/2">
+<input class="w-full rounded-lg border-border-light bg-background-light p-3 pl-8 text-right text-sm font-medium text-content-light focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50 dark:text-content-dark" type="text" value="1200.00"/>
+<span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-subtle-light dark:text-subtle-dark">₹</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative w-1/2">
+<input class="w-full appearance-none rounded-lg border-border-light bg-background-light p-3 pl-10 text-sm text-content-light focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50 dark:text-content-dark" type="date" value="2023-11-25"/>
+<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-lg text-subtle-light dark:text-subtle-dark">calendar_today</span>
+</div>
+<div class="relative w-1/2">
+<select class="w-full appearance-none rounded-lg border-border-light bg-background-light p-3 pl-10 text-sm text-content-light focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50 dark:text-content-dark">
+<option>You</option>
+<option>Rohan</option>
+<option>Priya</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-lg text-subtle-light dark:text-subtle-dark">account_balance_wallet</span>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<h2 class="mb-4 text-base font-bold text-content-light dark:text-content-dark">Split Method</h2>
+<div class="flex rounded-full bg-background-light p-1 dark:bg-surface-dark/50">
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': splitMethod === 'equally', 'text-subtle-light dark:text-subtle-dark': splitMethod !== 'equally'}" @click="splitMethod = 'equally'" class="flex-1 rounded-full px-2 py-2 text-center text-xs font-medium">Equally</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': splitMethod === 'percentage', 'text-subtle-light dark:text-subtle-dark': splitMethod !== 'percentage'}" @click="splitMethod = 'percentage'" class="flex-1 rounded-full px-2 py-2 text-center text-xs font-medium">By %</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': splitMethod === 'shares', 'text-subtle-light dark:text-subtle-dark': splitMethod !== 'shares'}" @click="splitMethod = 'shares'" class="flex-1 rounded-full px-2 py-2 text-center text-xs font-medium">By Shares</button>
+<button :class="{'bg-white dark:bg-surface-dark shadow-soft text-content-light dark:text-content-dark': splitMethod === 'custom', 'text-subtle-light dark:text-subtle-dark': splitMethod !== 'custom'}" @click="splitMethod = 'custom'" class="flex-1 rounded-full px-2 py-2 text-center text-xs font-medium">Custom</button>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<h2 class="mb-4 text-base font-bold text-content-light dark:text-content-dark">Members Breakdown</h2>
+<div class="max-h-60 space-y-3 overflow-y-auto pr-2">
+<template :key="index" x-for="(member, index) in members">
+<div class="flex items-center gap-3">
+<img :src="member.avatar" alt="member avatar" class="h-10 w-10 rounded-full"/>
+<p class="flex-1 font-medium text-content-light dark:text-content-dark" x-text="member.name"></p>
+<div class="flex items-center gap-2" x-show="splitMethod === 'equally'">
+<p class="w-20 rounded-lg bg-background-light p-2 text-center text-sm text-subtle-light dark:bg-surface-dark/50 dark:text-subtle-dark">₹300.00</p>
+</div>
+<div class="relative w-24" x-show="splitMethod === 'percentage'">
+<input class="w-full rounded-lg border-border-light bg-background-light p-2 text-right pr-6 text-sm focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50" type="number" x-model="member.share"/>
+<span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-sm text-subtle-light">%</span>
+</div>
+<div class="relative w-24" x-show="splitMethod === 'shares'">
+<input class="w-full rounded-lg border-border-light bg-background-light p-2 text-right pr-12 text-sm focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50" type="number" x-model="member.share"/>
+<span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-subtle-light">share(s)</span>
+</div>
+<div class="relative w-24" x-show="splitMethod === 'custom'">
+<input :disabled="member.locked" @input="recalculate()" class="w-full rounded-lg border-border-light bg-background-light p-2 text-right pr-6 text-sm focus:border-primary focus:ring-primary disabled:bg-gray-200 dark:border-border-dark dark:bg-surface-dark/50" type="number" x-model="member.amount"/>
+<span class="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-sm text-subtle-light">₹</span>
+<button @click="member.locked = !member.locked" class="absolute right-2 top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-base" x-text="member.locked ? 'lock' : 'lock_open'"></span>
+</button>
+</div>
+</div>
+</template>
+</div>
+<div class="mt-4 border-t border-border-light pt-3 dark:border-border-dark">
+<div class="flex h-8 items-center rounded-full bg-background-light dark:bg-surface-dark/50" x-show="splitMethod === 'percentage' || splitMethod === 'shares' || splitMethod === 'custom'">
+<div :style="`width: ${members.reduce((sum, m) =&gt; sum + parseFloat(m.share || m.amount/totalAmount*100 || 0), 0)}%`" class="h-full rounded-full bg-primary"></div>
+</div>
+<div class="mt-2 flex justify-between text-xs">
+<p class="text-subtle-light dark:text-subtle-dark">Total:</p>
+<p class="font-medium text-content-light dark:text-content-dark" x-show="splitMethod === 'equally' || splitMethod === 'custom'">₹<span x-text="members.reduce((s, m) =&gt; s + parseFloat(m.amount || 300), 0).toFixed(2)"></span> / ₹<span x-text="totalAmount.toFixed(2)"></span></p>
+<p class="font-medium text-content-light dark:text-content-dark" x-show="splitMethod === 'percentage' || splitMethod === 'shares'"><span x-text="members.reduce((s, m) =&gt; s + parseFloat(m.share || 0), 0)"></span>% / 100%</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-white p-4 shadow-soft dark:bg-surface-dark">
+<h2 class="mb-2 text-base font-bold text-content-light dark:text-content-dark">Notes / Description <span class="text-sm font-normal text-subtle-light">(Optional)</span></h2>
+<textarea class="w-full rounded-lg border-border-light bg-background-light p-3 text-sm text-content-light focus:border-primary focus:ring-primary dark:border-border-dark dark:bg-surface-dark/50 dark:text-content-dark" placeholder="Add any notes or attach a receipt..." rows="3"></textarea>
+<button class="mt-2 flex items-center gap-2 rounded-full border border-dashed border-primary px-4 py-2 text-sm font-medium text-primary">
+<span class="material-symbols-outlined text-base">attach_file</span>
+                    Attach File
+                </button>
+</div>
+<div class="rounded-xl bg-mint-green-accent p-4 shadow-soft dark:bg-surface-dark">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined mt-1 text-2xl text-mint-green-dark dark:text-primary">auto_awesome</span>
+<div>
+<h4 class="font-bold text-content-light dark:text-content-dark">AI Suggestions</h4>
+<p class="mt-1 text-sm text-subtle-light dark:text-subtle-dark">Based on the expense "Dinner", this seems to be a 'Food' category expense. Consider splitting equally among all group members.</p>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 z-10 mx-auto w-full max-w-md bg-white/80 p-4 pt-3 backdrop-blur-sm dark:bg-background-dark/80">
+<button class="w-full flex h-14 items-center justify-center gap-2 rounded-full bg-primary px-6 text-black shadow-lg">
+<span class="text-base font-bold">Add Expense</span>
+</button>
+</div>
+</div>
+
+</body></html>

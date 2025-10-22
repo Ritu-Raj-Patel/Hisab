@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hisab.AI - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .glow-focus:focus-within {
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.4), 0 0 15px rgba(34, 197, 94, 0.3);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gradient-to-br from-white to-teal-50">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden p-6">
+<div class="absolute -top-1/4 -left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-3xl -z-10"></div>
+<div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-3xl -z-10"></div>
+<div class="w-full max-w-sm">
+<div class="flex flex-col items-center mb-8">
+<div class="relative w-24 h-24 mb-4 flex items-center justify-center bg-white/50 shadow-subtle-lg rounded-xl backdrop-blur-sm">
+<div class="absolute inset-0 bg-green-500/10 rounded-xl opacity-50"></div>
+<span class="text-5xl font-bold text-green-500 drop-shadow-sm">₹</span>
+</div>
+<h1 class="text-2xl font-bold tracking-tight text-gray-800">Welcome Back</h1>
+<p class="text-gray-500 mt-1">Sign in to your Hisab.AI account</p>
+</div>
+<div class="bg-white/60 backdrop-blur-lg p-6 rounded-2xl shadow-lg">
+<form class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email Address</label>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white/70 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300 glow-focus" id="email" type="email"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="password">Password</label>
+<input class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white/70 text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-300 glow-focus" id="password" type="password"/>
+</div>
+<button class="w-full h-12 flex items-center justify-center rounded-full bg-green-500 text-white font-bold text-base shadow-lg shadow-green-500/30 hover:bg-green-600 transition-all hover:scale-105" type="submit">
+            Continue with Email
+          </button>
+<div class="text-right">
+<a class="text-sm font-medium text-green-600 hover:text-green-700" href="#">Forgot password?</a>
+</div>
+</form>
+<div class="relative flex py-5 items-center">
+<div class="flex-grow border-t border-gray-300"></div>
+<span class="flex-shrink mx-4 text-xs text-gray-400">OR</span>
+<div class="flex-grow border-t border-gray-300"></div>
+</div>
+<div class="space-y-3">
+<button class="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-700 font-semibold border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors">
+<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_105_22)"><path d="M22.56 12.25C22.56 11.45 22.49 10.68 22.36 9.92H11.5V14.28H17.78C17.53 15.75 16.83 16.98 15.79 17.72V20.31H19.5C21.46 18.49 22.56 15.63 22.56 12.25Z" fill="#4285F4"></path><path d="M11.5 23C14.47 23 16.96 22.01 18.78 20.31L15.79 17.72C14.83 18.39 13.34 18.88 11.5 18.88C8.36 18.88 5.71 16.89 4.83 14.07H1.04V16.74C2.82 20.44 6.81 23 11.5 23Z" fill="#34A853"></path><path d="M4.83 14.07C4.61 13.42 4.49 12.72 4.49 12C4.49 11.28 4.61 10.58 4.83 9.93V7.26H1.04C0.38 8.64 0 10.26 0 12C0 13.74 0.38 15.36 1.04 16.74L4.83 14.07Z" fill="#FBBC05"></path><path d="M11.5 5.12C13.02 5.12 14.33 5.65 15.39 6.64L18.87 3.16C16.96 1.34 14.47 0 11.5 0C6.81 0 2.82 2.56 1.04 6.26L4.83 8.93C5.71 6.11 8.36 5.12 11.5 5.12Z" fill="#EA4335"></path></g><defs><clipPath id="clip0_105_22"><rect fill="white" height="24" width="24"></rect></clipPath></defs>
+</svg>
+            Continue with Google
+          </button>
+<button class="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-700 font-semibold border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors">
+<svg class="h-5 w-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M17.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L11 14.586V4a1 1 0 112 0v10.586l2.293-2.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M3.707 3.293a1 1 0 010 1.414L2.414 6H13a1 1 0 110 2H2.414l1.293 1.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+<path d="M7 3a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1zM4 8a1 1 0 011-1h8a1 1 0 110 2H5a1 1 0 01-1-1zM4 12a1 1 0 011-1h8a1 1 0 110 2H5a1 1 0 01-1-1zM4 16a1 1 0 011-1h8a1 1 0 110 2H5a1 1 0 01-1-1z"></path>
+<path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zM7 2a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zM4 8a1 1 0 011-1h8a1 1 0 110 2H5a1 1 0 01-1-1zM4 12a1 1 0 011-1h8a1 1 0 110 2H5a1 1 0 01-1-1z" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0 2a10 10 0 100-20 10 10 0 000 20z" fill-rule="evenodd"></path>
+<path d="M11 5a1 1 0 10-2 0v5a1 1 0 102 0V5z"></path><path d="M11 11a1 1 0 10-2 0v2a1 1 0 102 0v-2z"></path>
+<path clip-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM2 10a8 8 0 1116 0 8 8 0 01-16 0z" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M10 1a9 9 0 100 18 9 9 0 000-18zM3 10a7 7 0 1114 0 7 7 0 01-14 0z" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" fill-rule="evenodd"></path>
+<path d="M11 11.01V5a1 1 0 10-2 0v6.01a1 1 0 102 0z"></path><path d="M11 14a1 1 0 10-2 0v.01a1 1 0 102 0V14z"></path>
+<path d="M10 4a6 6 0 100 12 6 6 0 000-12z"></path>
+<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+<path d="M12.9 8.293a1 1 0 00-1.414-1.414L10 8.586 8.515 7.1a1 1 0 00-1.414 1.414L8.586 10l-1.485 1.485a1 1 0 101.414 1.414L10 11.414l1.485 1.485a1 1 0 101.414-1.414L11.414 10l1.471-1.707z"></path>
+</svg>
+            Continue with Phone
+          </button>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>
